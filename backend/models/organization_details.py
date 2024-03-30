@@ -1,4 +1,7 @@
 from pydantic import BaseModel
+
+from backend.models.member import Member
+
 from .organization import Organization
 from .event import Event
 
@@ -17,3 +20,4 @@ class OrganizationDetails(Organization):
     """
 
     events: list[Event]
+    # roster: list[Member]

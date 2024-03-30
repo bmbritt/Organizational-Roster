@@ -10,4 +10,5 @@ class Member(BaseModel):
 
     name: str
     affiliation: str
-    primary_contact: bool
+    primary_contact: str
+    is_primary_contact: bool

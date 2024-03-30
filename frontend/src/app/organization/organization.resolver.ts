@@ -14,6 +14,7 @@ import { OrganizationService } from './organization.service';
 import { EventService } from '../event/event.service';
 import { Event } from '../event/event.model';
 import { catchError, map, of } from 'rxjs';
+import { Member } from './organization-roster.model';
 
 /** This resolver injects the list of organizations into the organization component. */
 export const organizationResolver: ResolveFn<Organization[] | undefined> = (
@@ -45,7 +46,8 @@ export const organizationDetailResolver: ResolveFn<Organization | undefined> = (
       youtube: '',
       heel_life: '',
       public: false,
-      events: null
+      events: null,
+      roster: null
     };
   }
 
@@ -67,6 +69,16 @@ export const organizationEventsResolver: ResolveFn<Event[] | undefined> = (
   state
 ) => {
   return inject(EventService).getEventsByOrganization(
+    route.paramMap.get('slug')!
+  );
+};
+
+/**This resolver injects the roster for a given organization into the organization component */
+export const organizationRosterResolver: ResolveFn<Member[] | undefined> = (
+  route,
+  state
+) => {
+  return inject(OrganizationService).getRosterByOrganization(
     route.paramMap.get('slug')!
   );
 };

@@ -53,7 +53,9 @@ class OrganizationEntity(EntityBase):
     events: Mapped[list["EventEntity"]] = relationship(
         back_populates="organization", cascade="all,delete"
     )
-
+    # roster: Mapped[list["MemberEntity"]] = relationship(
+    #     back_populates="organization", cascade="all,delete"
+    # )
     @classmethod
     def from_model(cls, model: Organization) -> Self:
         """
@@ -128,4 +130,5 @@ class OrganizationEntity(EntityBase):
             heel_life=self.heel_life,
             public=self.public,
             events=[event.to_model() for event in self.events],
+            # roster=[member.to_model() for member in self.roster]
         )

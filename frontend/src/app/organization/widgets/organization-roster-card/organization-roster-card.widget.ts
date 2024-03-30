@@ -19,11 +19,11 @@ import { Member } from '../../organization-roster.model';
 import { OrganizationService } from '../../organization.service';
 
 @Component({
-  selector: 'organization-details-info-card',
-  templateUrl: './organization-details-info-card.widget.html',
-  styleUrls: ['./organization-details-info-card.widget.css']
+  selector: 'organization-roster-card',
+  templateUrl: './organization-roster-card.widget.html',
+  styleUrls: ['./organization-roster-card.widget.css']
 })
-export class OrganizationDetailsInfoCard implements OnInit, OnDestroy {
+export class OrganizationRosterCard implements OnInit, OnDestroy {
   /** The organization to show */
   @Input() organization?: Organization;
   /** The currently logged in user */
@@ -43,7 +43,7 @@ export class OrganizationDetailsInfoCard implements OnInit, OnDestroy {
   constructor(
     private breakpointObserver: BreakpointObserver,
     private permission: PermissionService,
-    public orgService2: OrganizationService
+    private orgService3: OrganizationService
   ) {}
 
   checkPermissions(): Observable<boolean> {
@@ -57,6 +57,7 @@ export class OrganizationDetailsInfoCard implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.isHandsetSubscription = this.initHandset();
     this.isTabletSubscription = this.initTablet();
+    this.orgService3.initializeRoster(this.organization as Organization);
   }
 
   /** Unsubscribe from subscribers when the page is destroyed */

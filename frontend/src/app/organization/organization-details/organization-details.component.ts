@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 /**
  * The Organization Detail Component displays more information and options regarding
  * UNC CS organizations.
@@ -26,6 +27,7 @@ import { EventService } from 'src/app/event/event.service';
 import { Event } from 'src/app/event/event.model';
 import { Observable } from 'rxjs';
 import { PermissionService } from 'src/app/permission.service';
+import { OrganizationService } from '../organization.service';
 
 /** Injects the organization's name to adjust the title. */
 let titleResolver: ResolveFn<string> = (route: ActivatedRouteSnapshot) => {
@@ -39,6 +41,7 @@ let titleResolver: ResolveFn<string> = (route: ActivatedRouteSnapshot) => {
 })
 export class OrganizationDetailsComponent {
   /** Route information to be used in Organization Routing Module */
+
   public static Route: Route = {
     path: ':slug',
     component: OrganizationDetailsComponent,
@@ -67,13 +70,15 @@ export class OrganizationDetailsComponent {
 
   /** Whether or not the user has permission to update events. */
   public eventCreationPermission$: Observable<boolean>;
+  public roster: string[] | undefined;
 
   /** Constructs the Organization Detail component */
   constructor(
     private route: ActivatedRoute,
     protected snackBar: MatSnackBar,
     protected eventService: EventService,
-    private permission: PermissionService
+    private permission: PermissionService,
+    public orgservice: OrganizationService
   ) {
     /** Initialize data from resolvers. */
     const data = this.route.snapshot.data as {
@@ -81,6 +86,7 @@ export class OrganizationDetailsComponent {
       organization: Organization;
       events: Event[];
     };
+    this.roster = [];
     this.profile = data.profile;
     this.organization = data.organization;
     this.eventsPerDay = eventService.groupEventsByDate(data.events ?? []);

@@ -73,6 +73,8 @@
               <mat-icon>edit</mat-icon>
             </button>
           </a>
+          <button *ngIf="profile !== undefined && orgService2.joinButtonVisible" (click)="orgService2.joinOrganization(organization, profile) && orgService2.joinButtonVisible = false">Join Organization</button>
+          <button *ngIf="profile !== undefined && !orgService2.joinButtonVisible" (click)="orgService2.leaveOrganization(organization, profile) && orgService2.joinButtonVisible = true " >Leave Organization</button>
         </div>
       </div>
     </div>

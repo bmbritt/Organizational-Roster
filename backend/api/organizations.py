@@ -4,6 +4,8 @@ Organization routes are used to create, retrieve, and update Organizations."""
 
 from fastapi import APIRouter, Depends
 
+from backend.models.member import Member
+
 from ..services import OrganizationService
 from ..models.organization import Organization
 from ..models.organization_details import OrganizationDetails
@@ -37,6 +39,13 @@ def get_organizations(
 
     # Return all organizations
     return organization_service.all()
+
+#@api.get("/{slug}",response_model=list[Member], tags=["Organizations"])
+#def get_roster_by_organization(
+#    slug:str,
+#    organization_service: OrganizationService = Depends(),
+#) -> list[Member]:
+#    return organization_service.get_by_slug(slug).roster
 
 
 @api.post("", response_model=Organization, tags=["Organizations"])

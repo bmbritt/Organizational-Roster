@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 /**
  * The Organization Service abstracts HTTP requests to the backend
  * from the components.
@@ -13,6 +14,8 @@ import { AuthenticationService } from '../authentication.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { Organization } from './organization.model';
+import { Member } from './organization-roster.model';
+import { Profile } from '../models.module';
 
 @Injectable({
   providedIn: 'root'
@@ -24,11 +27,16 @@ export class OrganizationService {
     protected snackBar: MatSnackBar
   ) {}
 
+  public joinButtonVisible: boolean = true;
+
   /** Returns all organization entries from the backend database table using the backend HTTP get request.
    * @returns {Observable<Organization[]>}
    */
   getOrganizations(): Observable<Organization[]> {
     return this.http.get<Organization[]>('/api/organizations');
+  }
+  getRosterByOrganization(slug: string): Observable<Member[]> {
+    return this.http.get<Member[]>('/api/organizations/' + slug);
   }
 
   /** Returns the organization object from the backend database table using the backend HTTP get request.
@@ -44,6 +52,7 @@ export class OrganizationService {
    * @returns {Observable<Organization>}
    */
   createOrganization(organization: Organization): Observable<Organization> {
+    organization.roster = [];
     return this.http.post<Organization>('/api/organizations', organization);
   }
 
@@ -53,5 +62,56 @@ export class OrganizationService {
    */
   updateOrganization(organization: Organization): Observable<Organization> {
     return this.http.put<Organization>('/api/organizations', organization);
+  }
+
+  initializeRoster(organization: Organization): string[] | null {
+    let sampleRoster = [
+      'Abby',
+      'Brian',
+      'Evan',
+      'Norah',
+      'Chasity',
+      'Kris',
+      'Ajay',
+      'Lauren'
+    ];
+
+    // The data in the dummy database was not configured with a roster property
+    // the line below will reset the roster each time a member is added and is only
+    // here to initialize a roster property for the organizations that were not instantiated with one
+    organization.roster = [];
+
+    for (let i = 0; i < sampleRoster.length; i++) {
+      organization.roster?.push(sampleRoster[i]);
+    }
+
+    return organization.roster;
+  }
+
+  joinOrganization(organization: Organization, profile: Profile) {
+    let firstName = profile.first_name;
+    let lastName = profile.last_name;
+    let fullName = firstName + ' ' + lastName;
+    //TODO here is where once this is moved to the backend that we should be storing the profile of the user that has registered so that
+    //the same user cannot register twice with the same club
+    organization.roster?.push(fullName);
+    this.joinButtonVisible = false;
+    return organization.roster;
+  }
+  leaveOrganization(organization: Organization, profile: Profile) {
+    //TODO here we should check the backend to see if the user is in the database, if they are they should be deleted from it
+    //TODO but since is placeholder frontend code we won't do it yet
+    let firstName = profile.first_name;
+    let last_name = profile.last_name;
+    let fullName = firstName + ' ' + last_name;
+    if (organization.roster != null) {
+      for (let index = 0; index < organization.roster.length; ++index) {
+        if (organization.roster[index] == fullName) {
+          organization.roster.splice(index, 1);
+          break;
+        }
+      }
+    }
+    return organization.roster;
   }
 }
