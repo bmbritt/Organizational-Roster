@@ -16,7 +16,7 @@
   <organization-details-info-card
     [organization]="organization"
     [profile]="profile"
-    [roster]="roster" 
+    [roster]="roster"
     />
 
   <div class="event-listing-container">
@@ -28,9 +28,35 @@
       [showHeader]="true"
       [showCreateButton]="(eventCreationPermission$ | async)!" />
   </div>
-
-  <div class ="roster">
-    <h1>ROSTER</h1>
-    <organization-roster-card [organization]="organization"></organization-roster-card>
-  </div>
+  <mat-card>
+    <div class ="roster">
+      <h2>{{organization.name}} Roster</h2>
+      <mat-card>
+        <h4> Primary Contact </h4>
+        <p class="title">
+          {{primaryContact}}
+        </p>
+        <button class="contact-button" (click)="contactPopup()">Contact</button>
+      </mat-card>
+      <mat-card>
+        <h4> Organization President </h4>
+        <p class="title">
+          {{orgPresident}}
+        </p>
+      </mat-card>
+      <mat-card>
+        <h4> Organization Officer(s) </h4>
+        <p class="title">
+          {{orgOfficers}}
+        </p>
+      </mat-card>
+      <mat-card>
+        <h4> General Members </h4>
+        <p class="title">
+          {{roster}}
+        </p>
+      </mat-card>
+      <organization-roster-card [organization]="organization"></organization-roster-card>
+    </div>
+  </mat-card>
 </ng-template>

@@ -16,6 +16,7 @@ import { Observable } from 'rxjs';
 import { Organization } from './organization.model';
 import { Member } from './organization-roster.model';
 import { Profile } from '../models.module';
+import { organizationDetailResolver } from './organization.resolver';
 
 @Injectable({
   providedIn: 'root'
@@ -64,16 +65,16 @@ export class OrganizationService {
     return this.http.put<Organization>('/api/organizations', organization);
   }
 
-  initializeRoster(organization: Organization): string[] | null {
+  initializeRoster(organization: Organization): string[] {
     let sampleRoster = [
-      'Abby',
-      'Brian',
-      'Evan',
-      'Norah',
-      'Chasity',
-      'Kris',
-      'Ajay',
-      'Lauren'
+      ' Abby',
+      ' Brian',
+      ' Evan',
+      ' Norah',
+      ' Chasity',
+      ' Kris',
+      ' Ajay',
+      ' Lauren'
     ];
 
     // The data in the dummy database was not configured with a roster property
@@ -88,6 +89,38 @@ export class OrganizationService {
     return organization.roster;
   }
 
+  initializePrimaryContact(organization: Organization): string {
+    let samplePrimaryContact = ' Kris ';
+
+    organization.primaryContact = samplePrimaryContact;
+    return organization.primaryContact;
+  }
+
+  initializePrimaryContactInfo(organization: Organization): string {
+    let sampleContactInfo = ' Email: primarycontact@unc.edu ';
+
+    organization.contactInfo = sampleContactInfo;
+    return organization.contactInfo;
+  }
+
+  initializePresident(organization: Organization): string {
+    let samplePresident = ' Ajay ';
+
+    organization.president = samplePresident;
+    return organization.president;
+  }
+
+  initializeOfficers(organization: Organization): string[] {
+    let sampleOfficers = [' Brian', ' Chasity', ' Evan', ' Norah '];
+    organization.officers = [];
+
+    for (let i = 0; i < sampleOfficers.length; i++) {
+      organization.officers?.push(sampleOfficers[i]);
+    }
+
+    return organization.officers;
+  }
+
   joinOrganization(organization: Organization, profile: Profile) {
     let firstName = profile.first_name;
     let lastName = profile.last_name;
@@ -98,6 +131,7 @@ export class OrganizationService {
     this.joinButtonVisible = false;
     return organization.roster;
   }
+
   leaveOrganization(organization: Organization, profile: Profile) {
     //TODO here we should check the backend to see if the user is in the database, if they are they should be deleted from it
     //TODO but since is placeholder frontend code we won't do it yet

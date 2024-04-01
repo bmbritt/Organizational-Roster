@@ -31,7 +31,7 @@ export const organizationDetailResolver: ResolveFn<Organization | undefined> = (
 ) => {
   // If the organization is new, return a blank one
   if (route.paramMap.get('slug')! == 'new') {
-    return {
+    return of({
       id: null,
       name: '',
       shorthand: '',
@@ -48,7 +48,7 @@ export const organizationDetailResolver: ResolveFn<Organization | undefined> = (
       public: false,
       events: null,
       roster: null
-    };
+    } as Organization);
   }
 
   // Otherwise, return the organization.

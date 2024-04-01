@@ -71,6 +71,9 @@ export class OrganizationDetailsComponent {
   /** Whether or not the user has permission to update events. */
   public eventCreationPermission$: Observable<boolean>;
   public roster: string[] | undefined;
+  public primaryContact: string;
+  public orgPresident: string;
+  public orgOfficers: string | string[];
 
   /** Constructs the Organization Detail component */
   constructor(
@@ -86,13 +89,21 @@ export class OrganizationDetailsComponent {
       organization: Organization;
       events: Event[];
     };
-    this.roster = [];
     this.profile = data.profile;
     this.organization = data.organization;
+    this.roster = this.orgservice.initializeRoster(this.organization);
+    this.primaryContact = this.orgservice.initializePrimaryContact(
+      this.organization
+    );
+    this.orgPresident = this.orgservice.initializePresident(this.organization);
+    this.orgOfficers = this.orgservice.initializeOfficers(this.organization);
     this.eventsPerDay = eventService.groupEventsByDate(data.events ?? []);
     this.eventCreationPermission$ = this.permission.check(
       'organization.events.*',
       `organization/${this.organization?.id ?? -1}`
     );
+  }
+  contactPopup() {
+    alert(this.orgservice.initializePrimaryContactInfo(this.organization));
   }
 }
