@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 /**
  * The Organization Resolver allows the organization to be injected into the routes
  * of components.

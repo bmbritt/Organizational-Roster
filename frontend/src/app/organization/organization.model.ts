@@ -28,6 +28,7 @@ export interface Organization {
   shorthand: string;
   events: Event[] | null;
   roster: string[] | null;
+
   primaryContact: string;
   contactInfo: string;
   president: string;

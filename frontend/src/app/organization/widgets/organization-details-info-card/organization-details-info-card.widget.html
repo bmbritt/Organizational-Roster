@@ -1,3 +1,4 @@
+<!-- eslint-disable prettier/prettier -->
 <mat-card
   class="organization-card"
   *ngIf="organization !== undefined"
@@ -73,22 +74,13 @@
               <mat-icon>edit</mat-icon>
             </button>
           </a>
-          <button
-            *ngIf="profile !== undefined && orgService2.joinButtonVisible"
-            (click)="
-              orgService2.joinOrganization(organization, profile) &&
-                (orgService2.joinButtonVisible = false)
-            ">
-            Join Organization
-          </button>
-          <button
-            *ngIf="profile !== undefined && !orgService2.joinButtonVisible"
-            (click)="
-              orgService2.leaveOrganization(organization, profile) &&
-                (orgService2.joinButtonVisible = true)
-            ">
-            Leave Organization
-          </button>
+
+          <!-- <button mat-button *ngIf="profile !== undefined && orgService2.joinButtonVisible" (click)="orgService2.joinOrganization(organization, profile) && orgService2.joinButtonVisible = false" (click)="orgService2.joinOrganization(organization, profile)">Join Organization</button>
+          <button mat-button *ngIf="profile !== undefined && !orgService2.joinButtonVisible" (click)="orgService2.leaveOrganization(organization, profile) && orgService2.joinButtonVisible = true" (click)="orgService2.leaveOrganization(organization, profile)" >Leave Organization</button> -->
+
+          <button mat-button *ngIf="(profile !== undefined && orgService2.joinButtonVisible)" (click)="orgService2.joinOrganization(organization,profile)">Join Organization</button>
+          <button mat-button *ngIf="(profile !== undefined && !orgService2.joinButtonVisible)" (click)="orgService2.leaveOrganization(organization,profile)">Leave Organization</button>
+
         </div>
       </div>
     </div>

@@ -28,7 +28,7 @@ export class OrganizationDetailsInfoCard implements OnInit, OnDestroy {
   @Input() organization?: Organization;
   /** The currently logged in user */
   @Input() profile?: Profile;
-  @Input() roster?: string[];
+  @Input() roster?: string[] | null;
 
   public orgService = OrganizationService;
   /** Holds data on whether or not the user is on a mobile device */

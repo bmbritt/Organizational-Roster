@@ -70,7 +70,7 @@ export class OrganizationDetailsComponent {
 
   /** Whether or not the user has permission to update events. */
   public eventCreationPermission$: Observable<boolean>;
-  public roster: string[] | undefined;
+  public roster: string[] | null | undefined;
   public primaryContact: string;
   public orgPresident: string;
   public orgOfficers: string | string[];
@@ -89,6 +89,7 @@ export class OrganizationDetailsComponent {
       organization: Organization;
       events: Event[];
     };
+    this.roster = [];
     this.profile = data.profile;
     this.organization = data.organization;
     this.roster = this.orgservice.initializeRoster(this.organization);

@@ -1,2 +1,42 @@
 <!-- eslint-disable prettier/prettier -->
-<p *ngFor="let member of organization?.roster">{{member}}</p>
+
+<mat-card appearance="outlined">
+
+    <mat-card-title>Roster</mat-card-title>
+
+    <mat-card>
+        <h4> Primary Contact </h4>
+        <p class="title">
+            {{organization?.primaryContact}}
+        </p>  
+        <button mat-button (click)="contactPopup()">Contact</button>
+    </mat-card>
+
+    <mat-card>
+        <h4> Organization President </h4>
+        <p class="title">
+          {{organization?.president}}
+        </p>
+    </mat-card>
+
+    <mat-card>
+        <h4> Organization Officer(s) </h4>
+        <p class="title">
+          {{organization?.officers}}
+        </p>
+    </mat-card>
+
+    <mat-card>
+        <h4> General Members </h4>
+        <div *ngFor="let member of organization?.roster">
+            <mat-list-item>{{member}}</mat-list-item>
+        </div>
+    </mat-card>
+
+
+
+</mat-card>
+
+
+
+

@@ -11,6 +11,7 @@ from ..models.organization import Organization
 from ..models.organization_details import OrganizationDetails
 from ..api.authentication import registered_user
 from ..models.user import User
+from ..models.member import Member
 
 __authors__ = ["Ajay Gandecha", "Jade Keegan", "Brianna Ta", "Audrey Toney"]
 __copyright__ = "Copyright 2023"
@@ -40,11 +41,20 @@ def get_organizations(
     # Return all organizations
     return organization_service.all()
 
-#@api.get("/{slug}",response_model=list[Member], tags=["Organizations"])
-#def get_roster_by_organization(
+
+# @api.get("/{slug}",response_model=list[Member], tags=["Organizations"])
+# def get_roster_by_organization(
 #    slug:str,
 #    organization_service: OrganizationService = Depends(),
-#) -> list[Member]:
+# ) -> list[Member]:
+#    return organization_service.get_by_slug(slug).roster
+
+
+# @api.get("/{slug}",response_model=list[Member], tags=["Organizations"])
+# def get_roster_by_organization(
+#    slug:str,
+#    organization_service: OrganizationService = Depends(),
+# ) -> list[Member]:
 #    return organization_service.get_by_slug(slug).roster
 
 
@@ -146,3 +156,15 @@ def delete_organization(
     """
 
     organization_service.delete(subject, slug)
+
+
+@api.delete("/{slug}/{id}", tags=["Organizations"])
+def delete_member(organization_service: OrganizationService = Depends()):
+    """Delete a member from the organization's roster"""
+    return {"Brian", "president", True}
+
+
+@api.put("/{slug}/{id}", tags=["Organizations"])
+def add_member(organization_service: OrganizationService = Depends()):
+    """Add a member to the organization"""
+    return {"Brian", "president", True}

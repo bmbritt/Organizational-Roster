@@ -65,16 +65,16 @@ export class OrganizationService {
     return this.http.put<Organization>('/api/organizations', organization);
   }
 
-  initializeRoster(organization: Organization): string[] {
+  initializeRoster(organization: Organization): string[] | null {
     let sampleRoster = [
-      ' Abby',
-      ' Brian',
-      ' Evan',
-      ' Norah',
-      ' Chasity',
-      ' Kris',
-      ' Ajay',
-      ' Lauren'
+      'Abby',
+      'Brian',
+      'Evan',
+      'Norah',
+      'Chasity',
+      'Kris',
+      'Ajay',
+      'Lauren'
     ];
 
     // The data in the dummy database was not configured with a roster property
@@ -122,6 +122,7 @@ export class OrganizationService {
   }
 
   joinOrganization(organization: Organization, profile: Profile) {
+    alert('Join organization called!');
     let firstName = profile.first_name;
     let lastName = profile.last_name;
     let fullName = firstName + ' ' + lastName;
@@ -135,6 +136,7 @@ export class OrganizationService {
   leaveOrganization(organization: Organization, profile: Profile) {
     //TODO here we should check the backend to see if the user is in the database, if they are they should be deleted from it
     //TODO but since is placeholder frontend code we won't do it yet
+    alert('Leave organization called!');
     let firstName = profile.first_name;
     let last_name = profile.last_name;
     let fullName = firstName + ' ' + last_name;
@@ -146,6 +148,7 @@ export class OrganizationService {
         }
       }
     }
+    this.joinButtonVisible = !this.joinButtonVisible;
     return organization.roster;
   }
 }

@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 /**
  * The Organization Details Info Card widget abstracts the implementation of each
  * individual organization detail card from the whole organization detail page.
@@ -80,5 +81,9 @@ export class OrganizationRosterCard implements OnInit, OnDestroy {
       .observe(Breakpoints.TabletLandscape)
       .pipe(map((result) => result.matches))
       .subscribe((isTablet) => (this.isTablet = isTablet));
+  }
+
+  contactPopup() {
+    alert('contact@unc.edu');
   }
 }
