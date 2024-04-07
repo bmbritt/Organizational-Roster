@@ -5,6 +5,7 @@ import { GateComponent } from './gate/gate.component';
 import { HomeComponent } from './home/home.component';
 import { ProfileEditorComponent } from './profile/profile-editor/profile-editor.component';
 import { AboutComponent } from './about/about.component';
+import { OrganizationRoutingModule } from './organization/organization-routing.module';
 
 const routes: Routes = [
   HomeComponent.Route,

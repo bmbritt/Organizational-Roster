@@ -17,6 +17,7 @@ import { PermissionService } from 'src/app/permission.service';
 import { Observable } from 'rxjs';
 import { Member } from '../../organization-roster.model';
 import { OrganizationService } from '../../organization.service';
+import { OrganizationRequestFormService } from '../../organization-request-form/organization-request-form.service';
 
 @Component({
   selector: 'organization-details-info-card',
@@ -43,7 +44,8 @@ export class OrganizationDetailsInfoCard implements OnInit, OnDestroy {
   constructor(
     private breakpointObserver: BreakpointObserver,
     private permission: PermissionService,
-    public orgService2: OrganizationService
+    public orgService2: OrganizationService,
+    public orgRequestService: OrganizationRequestFormService
   ) {}
 
   checkPermissions(): Observable<boolean> {

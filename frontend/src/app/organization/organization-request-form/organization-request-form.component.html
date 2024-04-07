@@ -1,0 +1,51 @@
+<form [formGroup]="requestToJoinForm" (ngSubmit)="onSubmit()">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>
+              Request to Join {{this.organization.name}} Form
+            </mat-card-title>
+        </mat-card-header>
+        <mat-form-field appearance="outline" color="accent">
+            <mat-label>What strengths can you bring to {{this.organization.name}}? (Limit 2000 Characters)</mat-label>
+            <input
+              matInput
+              placeholder=""
+              formControlName="tellAbout"
+              name="tellAbout"
+              required />
+          </mat-form-field>
+                <!-- Why do you want to join us Field -->
+      <mat-form-field appearance="outline" color="accent">
+        <mat-label>Why do you want to join us? (Limit 2000 Characters)</mat-label>
+        <input
+          matInput
+          placeholder=""
+          formControlName="whyJoin"
+          name="whyJoin"
+          required />
+      </mat-form-field>
+      <mat-form-field appearance="outline" color="accent">
+        <mat-label>What is your Major?</mat-label>
+        <input
+          matInput
+          placeholder=""
+          formControlName="major"
+          name="major"
+          required />
+      </mat-form-field>
+      <mat-form-field>
+        Approximate Graduation Date
+        <input matInput [matDatepicker]="picker" formControlName="graduation" />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+      <mat-card-actions>
+        <button mat-raised-button type="submit" [disabled]="!requestToJoinForm.valid" color="warn">
+        SUBMIT
+        </button>
+    </mat-card-actions>
+  </mat-card>
+
+</form>
+
+

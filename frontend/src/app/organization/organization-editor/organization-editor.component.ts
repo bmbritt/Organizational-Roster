@@ -80,6 +80,7 @@ export class OrganizationEditorComponent {
   ]);
   logo = new FormControl('', [Validators.required]);
   email = new FormControl('', [Validators.email]);
+  //closed = new FormControl(true, [Validators.required]);
   shortDescription = new FormControl('', [
     Validators.required,
     Validators.maxLength(150)
@@ -100,7 +101,8 @@ export class OrganizationEditorComponent {
     linked_in: '',
     youtube: '',
     heel_life: '',
-    public: false
+    public: false,
+    closed: false
   });
 
   /** Retreives an error message if an email is invalid */
@@ -123,7 +125,7 @@ export class OrganizationEditorComponent {
     };
     this.profile = data.profile;
     this.organization = data.organization;
-
+    //console.log(this.organization.closed);
     /** Set organization form data */
     this.organizationForm.setValue({
       name: this.organization.name,
@@ -138,7 +140,8 @@ export class OrganizationEditorComponent {
       linked_in: this.organization.linked_in,
       youtube: this.organization.youtube,
       heel_life: this.organization.heel_life,
-      public: this.organization.public
+      public: this.organization.public,
+      closed: false
     });
 
     /** Get id from the url */
@@ -150,7 +153,8 @@ export class OrganizationEditorComponent {
    * @returns {void}
    */
   onSubmit(): void {
-    if (this.organizationForm.valid) {
+    if (this.organizationForm.value) {
+      console.log(this.organization);
       Object.assign(this.organization, this.organizationForm.value);
       if (this.organization_slug == 'new') {
         this.organizationService

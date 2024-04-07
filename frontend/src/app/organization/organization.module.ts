@@ -43,12 +43,16 @@ import { OrganizationDetailsInfoCard } from './widgets/organization-details-info
 import { OrganizationEditorComponent } from '/workspace/frontend/src/app/organization/organization-editor/organization-editor.component';
 import { OrganizationNotFoundCard } from './widgets/organization-not-found-card/organization-not-found-card.widget';
 import { OrganizationRosterCard } from './widgets/organization-roster-card/organization-roster-card.widget';
+import { OrganizationRequestFormComponent } from './organization-request-form/organization-request-form.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
     OrganizationPageComponent,
     OrganizationDetailsComponent,
     OrganizationEditorComponent,
+    OrganizationRequestFormComponent,
 
     // Pipes
     OrganizationFilterPipe,
@@ -78,7 +82,9 @@ import { OrganizationRosterCard } from './widgets/organization-roster-card/organ
     MatTooltipModule,
     OrganizationRoutingModule,
     RouterModule,
-    SharedModule
+    SharedModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ]
 })
 export class OrganizationModule {}

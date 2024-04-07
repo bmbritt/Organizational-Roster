@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 /**
  * The Organization Model defines the shape of Organization data
  * retrieved from the Organization Service and the API.
@@ -11,6 +12,7 @@ import { Event } from '../event/event.model';
 import { Member } from '../organization/organization-roster.model';
 
 /** Interface for Organization Type (used on frontend for organization detail) */
+
 export interface Organization {
   id: number | null;
   name: string;
@@ -24,11 +26,11 @@ export interface Organization {
   youtube: string;
   heel_life: string;
   public: boolean;
+  closed: boolean;
   slug: string;
   shorthand: string;
   events: Event[] | null;
   roster: string[] | null;
-
   primaryContact: string;
   contactInfo: string;
   president: string;

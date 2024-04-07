@@ -122,13 +122,9 @@ export class OrganizationService {
   }
 
   joinOrganization(organization: Organization, profile: Profile) {
-    alert('Join organization called!');
-    let firstName = profile.first_name;
-    let lastName = profile.last_name;
-    let fullName = firstName + ' ' + lastName;
     //TODO here is where once this is moved to the backend that we should be storing the profile of the user that has registered so that
     //the same user cannot register twice with the same club
-    organization.roster?.push(fullName);
+    organization.roster?.push(profile.first_name + ' ' + profile.last_name);
     this.joinButtonVisible = false;
     return organization.roster;
   }
@@ -136,7 +132,6 @@ export class OrganizationService {
   leaveOrganization(organization: Organization, profile: Profile) {
     //TODO here we should check the backend to see if the user is in the database, if they are they should be deleted from it
     //TODO but since is placeholder frontend code we won't do it yet
-    alert('Leave organization called!');
     let firstName = profile.first_name;
     let last_name = profile.last_name;
     let fullName = firstName + ' ' + last_name;
