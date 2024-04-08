@@ -11,6 +11,7 @@ from ..models.organization import Organization
 from ..models.organization_details import OrganizationDetails
 from ..entities.organization_entity import OrganizationEntity
 from ..models import User
+from ..models import Member
 from .permission import PermissionService
 
 from .exceptions import ResourceNotFoundException
@@ -196,3 +197,13 @@ class OrganizationService:
         self._session.delete(obj)
         # Save changes
         self._session.commit()
+
+    def addMember(
+        self, subject: User, organzation: Organization, member: Member
+    ) -> None:
+        organzation.roster.append(member)
+
+    def deleteMember(
+        self, subject: User, organization: Organization, member: Member
+    ) -> None:
+        organization.roster.remove(member)
