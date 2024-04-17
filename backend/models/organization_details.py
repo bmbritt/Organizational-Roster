@@ -20,4 +20,3 @@ class OrganizationDetails(Organization):
     """
 
     events: list[Event]
-    # roster: list[Member]

@@ -12,6 +12,7 @@ from .event import Event
 from .public_user import PublicUser
 from .event_details import EventDetails
 from .room import Room
+from .member import Member
 from .room_details import RoomDetails
 from .event_registration import (
     EventRegistration,

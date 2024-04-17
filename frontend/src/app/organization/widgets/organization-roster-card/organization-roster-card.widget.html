@@ -9,7 +9,7 @@
         <p class="title">
             {{organization?.primaryContact}}
         </p>  
-        <button mat-button (click)="contactPopup()">Contact</button>
+       
     </mat-card>
 
     <mat-card>
@@ -28,7 +28,7 @@
 
     <mat-card>
         <h4> General Members </h4>
-        <div *ngFor="let member of organization?.roster">
+        <div *ngFor="let member of roster">
             <mat-list-item>{{member}}</mat-list-item>
         </div>
     </mat-card>

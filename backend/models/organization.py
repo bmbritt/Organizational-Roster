@@ -1,4 +1,7 @@
 from pydantic import BaseModel
+from enum import Enum
+
+from backend.models.member import Member
 
 __authors__ = ["Ajay Gandecha", "Jade Keegan", "Brianna Ta", "Audrey Toney"]
 __copyright__ = "Copyright 2023"

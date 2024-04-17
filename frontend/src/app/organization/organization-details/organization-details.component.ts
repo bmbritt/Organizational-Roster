@@ -25,9 +25,10 @@ import {
 } from '../organization.resolver';
 import { EventService } from 'src/app/event/event.service';
 import { Event } from 'src/app/event/event.model';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { PermissionService } from 'src/app/permission.service';
 import { OrganizationService } from '../organization.service';
+import { Member } from '../organization-roster.model';
 
 /** Injects the organization's name to adjust the title. */
 let titleResolver: ResolveFn<string> = (route: ActivatedRouteSnapshot) => {
@@ -70,10 +71,8 @@ export class OrganizationDetailsComponent {
 
   /** Whether or not the user has permission to update events. */
   public eventCreationPermission$: Observable<boolean>;
-  public roster: string[] | null | undefined;
-  public primaryContact: string;
+  public roster: string[];
   public orgPresident: string;
-  public orgOfficers: string | string[];
 
   /** Constructs the Organization Detail component */
   constructor(
@@ -89,22 +88,24 @@ export class OrganizationDetailsComponent {
       organization: Organization;
       events: Event[];
     };
+    let organization_slug = this.route.snapshot.params['slug'];
+
     this.roster = [];
     this.profile = data.profile;
     this.organization = data.organization;
-    this.roster = this.orgservice.initializeRoster(this.organization);
-    this.primaryContact = this.orgservice.initializePrimaryContact(
-      this.organization
-    );
-    this.orgPresident = this.orgservice.initializePresident(this.organization);
-    this.orgOfficers = this.orgservice.initializeOfficers(this.organization);
+    orgservice
+      .getMembersByOrganization(organization_slug)
+      .pipe(map((member: Member[]) => member.map((member) => member.name)))
+      .subscribe((roster: string[]) => {
+        this.roster = roster;
+      });
+
+    this.orgPresident = 'Norah';
+
     this.eventsPerDay = eventService.groupEventsByDate(data.events ?? []);
     this.eventCreationPermission$ = this.permission.check(
       'organization.events.*',
       `organization/${this.organization?.id ?? -1}`
     );
-  }
-  contactPopup() {
-    alert(this.orgservice.initializePrimaryContactInfo(this.organization));
   }
 }

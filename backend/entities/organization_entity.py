@@ -2,6 +2,8 @@
 
 from sqlalchemy import Integer, String, Boolean
 from sqlalchemy.orm import Mapped, mapped_column, relationship
+
+from backend.models.member import Member
 from .entity_base import EntityBase
 from typing import Self
 from ..models.organization import Organization
@@ -53,9 +55,9 @@ class OrganizationEntity(EntityBase):
     events: Mapped[list["EventEntity"]] = relationship(
         back_populates="organization", cascade="all,delete"
     )
-    # roster: Mapped[list["MemberEntity"]] = relationship(
-    #     back_populates="organization", cascade="all,delete"
-    # )
+
+    members: Mapped[list["MemberEntity"]] = relationship(back_populates="organization")
+
     @classmethod
     def from_model(cls, model: Organization) -> Self:
         """
@@ -90,6 +92,8 @@ class OrganizationEntity(EntityBase):
         Returns:
             Organization: `Organization` object from the entity
         """
+
+
         return Organization(
             id=self.id,
             name=self.name,
@@ -130,5 +134,4 @@ class OrganizationEntity(EntityBase):
             heel_life=self.heel_life,
             public=self.public,
             events=[event.to_model() for event in self.events],
-            # roster=[member.to_model() for member in self.roster]
         )

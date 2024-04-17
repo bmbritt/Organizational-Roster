@@ -12,7 +12,6 @@ This module serves two purposes:
 When adding a new entity to the application be sure to import it here. As a reminder, all identifiers 
 global to a module are available for import from other modules."""
 
-
 from .entity_base import EntityBase
 from .user_entity import UserEntity
 from .role_entity import RoleEntity
@@ -22,6 +21,7 @@ from .user_role_table import user_role_table
 from .organization_entity import OrganizationEntity
 from .event_entity import EventEntity
 from .event_registration_entity import EventRegistrationEntity
+from .member_entity import MemberEntity
 
 __authors__ = ["Kris Jordan"]
 __copyright__ = "Copyright 2023"

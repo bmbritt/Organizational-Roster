@@ -1,5 +1,7 @@
 export interface Member {
+  id: number | null;
   name: string;
+  profile_id: number | null;
   affiliation: string;
-  primary_contact: boolean;
+  organization_id: number | null;
 }

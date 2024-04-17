@@ -6,6 +6,9 @@ from fastapi import Depends
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
+from backend.entities.member_entity import MemberEntity
+from backend.models.member import Member
+
 from ..database import db_session
 from ..models.organization import Organization
 from ..models.organization_details import OrganizationDetails
@@ -196,3 +199,44 @@ class OrganizationService:
         self._session.delete(obj)
         # Save changes
         self._session.commit()
+
+    def create_member(self, subject: User, organization: Organization) -> Member:
+        if organization.id is None:
+            raise ValueError("Organization must exist to add a member.")
+        if(subject.id):
+            member_entity = MemberEntity.from_model(organization, Member(id=None, name=subject.first_name +' '+subject.last_name,profile_id=subject.id ,affiliation="General Member", organization_id=organization.id))
+
+        self._session.add(member_entity)
+        self._session.commit()
+
+        return member_entity.to_model()
+    
+    def get_by_id(self, id: int) -> OrganizationDetails:
+        """
+        Get the organization from a slug
+        If none retrieved, a debug description is displayed.
+
+        Parameters:
+            int: a int representing a unique organization int
+
+        Returns:
+            Organization: Object with corresponding int
+
+        Raises:
+            ResourceNotFoundException if no organization is found with the corresponding int
+        """
+
+        # Query the organization with matching id
+        organization = (
+            self._session.query(OrganizationEntity)
+            .filter(OrganizationEntity.id == id)
+            .one_or_none()
+        )
+
+        # Check if result is null
+        if organization is None:
+            raise ResourceNotFoundException(
+                f"No organization found with matching id: {id}"
+            )
+
+        return organization.to_details_model()

@@ -79,7 +79,7 @@ export const organizationRosterResolver: ResolveFn<Member[] | undefined> = (
   route,
   state
 ) => {
-  return inject(OrganizationService).getRosterByOrganization(
+  return inject(OrganizationService).getMembersByOrganization(
     route.paramMap.get('slug')!
   );
 };

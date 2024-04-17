@@ -18,6 +18,8 @@ import { PermissionService } from 'src/app/permission.service';
 import { Observable } from 'rxjs';
 import { Member } from '../../organization-roster.model';
 import { OrganizationService } from '../../organization.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { async } from 'rxjs';
 
 @Component({
   selector: 'organization-roster-card',
@@ -43,6 +45,7 @@ export class OrganizationRosterCard implements OnInit, OnDestroy {
   /** Constructs the organization detail info card widget */
   constructor(
     private breakpointObserver: BreakpointObserver,
+    private route: ActivatedRoute,
     private permission: PermissionService,
     private orgService3: OrganizationService
   ) {}
@@ -54,11 +57,19 @@ export class OrganizationRosterCard implements OnInit, OnDestroy {
     );
   }
 
+  //TODO TAKE LIST OF OBSERVABLE MEMBERS CHANGE INTO NORMAL MEMBERS AND ACCESS THE NAME PROPERTY
   /** Runs whenever the view is rendered initally on the screen */
   ngOnInit(): void {
     this.isHandsetSubscription = this.initHandset();
     this.isTabletSubscription = this.initTablet();
-    this.orgService3.initializeRoster(this.organization as Organization);
+    let organization_slug = this.organization?.slug;
+    this.orgService3
+
+      .getMembersByOrganization(organization_slug)
+      .pipe(map((member: Member[]) => member.map((member) => member.name)))
+      .subscribe((roster: string[]) => {
+        this.roster = roster;
+      });
   }
 
   /** Unsubscribe from subscribers when the page is destroyed */

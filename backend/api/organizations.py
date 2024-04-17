@@ -42,22 +42,6 @@ def get_organizations(
     return organization_service.all()
 
 
-# @api.get("/{slug}",response_model=list[Member], tags=["Organizations"])
-# def get_roster_by_organization(
-#    slug:str,
-#    organization_service: OrganizationService = Depends(),
-# ) -> list[Member]:
-#    return organization_service.get_by_slug(slug).roster
-
-
-# @api.get("/{slug}",response_model=list[Member], tags=["Organizations"])
-# def get_roster_by_organization(
-#    slug:str,
-#    organization_service: OrganizationService = Depends(),
-# ) -> list[Member]:
-#    return organization_service.get_by_slug(slug).roster
-
-
 @api.post("", response_model=Organization, tags=["Organizations"])
 def new_organization(
     organization: Organization,
@@ -135,36 +119,3 @@ def update_organization(
     """
 
     return organization_service.update(subject, organization)
-
-
-@api.delete("/{slug}", response_model=None, tags=["Organizations"])
-def delete_organization(
-    slug: str,
-    subject: User = Depends(registered_user),
-    organization_service: OrganizationService = Depends(),
-):
-    """
-    Delete organization based on slug
-
-    Parameters:
-        slug: a string representing a unique identifier for an Organization
-        subject: a valid User model representing the currently logged in User
-        organization_service: a valid OrganizationService
-
-    Raises:
-        HTTPException 404 if delete() raises an Exception
-    """
-
-    organization_service.delete(subject, slug)
-
-
-@api.delete("/{slug}/{id}", tags=["Organizations"])
-def delete_member(organization_service: OrganizationService = Depends()):
-    """Delete a member from the organization's roster"""
-    return {"Brian", "president", True}
-
-
-@api.put("/{slug}/{id}", tags=["Organizations"])
-def add_member(organization_service: OrganizationService = Depends()):
-    """Add a member to the organization"""
-    return {"Brian", "president", True}
