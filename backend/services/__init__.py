@@ -7,3 +7,4 @@ from .event import EventService
 from .exceptions import ResourceNotFoundException, UserPermissionException
 from .room import RoomService
 from .member import MemberService
+from .request import RequestService

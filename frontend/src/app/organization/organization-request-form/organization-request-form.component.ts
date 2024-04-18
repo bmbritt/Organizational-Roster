@@ -17,6 +17,7 @@ import { Profile } from 'src/app/profile/profile.service';
 import { organizationDetailResolver } from '../organization.resolver';
 import { CompletedRequestObject } from './organization-request.model';
 import { OrganizationRequestFormService } from './organization-request-form.service';
+import { RequestService } from './request.service';
 
 @Component({
   selector: 'app-organization-request-form',
@@ -59,7 +60,8 @@ export class OrganizationRequestFormComponent {
     private router: Router,
     protected formBuilder: FormBuilder,
     protected snackBar: MatSnackBar,
-    private organizationRequestFormService: OrganizationRequestFormService
+    private organizationRequestFormService: OrganizationRequestFormService,
+    private requestService: RequestService
   ) {
     /** Initialize data from resolvers. */
     const data = this.route.snapshot.data as {
@@ -127,6 +129,16 @@ export class OrganizationRequestFormComponent {
         this.profile as Profile,
         this.requestToJoinForm.value
       );
+      let newRequest = {
+        id: null,
+        name: this.profile?.first_name,
+        organization_id: null,
+        strength: this.tellAbout.value ?? '',
+        reasoning: this.whyJoin.value ?? '',
+        major: this.major.value ?? '',
+        profile_id: this.profile?.id
+      };
+      this.requestService.addRequest(this.organization_slug, newRequest);
       this.onSuccess(this.organization);
 
       //TODO THIS SHOULD JUST CALL SERVICE FUNCTIONS THAT SEND THE REQUEST TO THE BACKEND TO BE STORED

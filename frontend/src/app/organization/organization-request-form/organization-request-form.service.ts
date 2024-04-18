@@ -8,6 +8,7 @@ import { Member } from '../organization-roster.model';
 import { Profile } from '../../models.module';
 import { organizationDetailResolver } from '../organization.resolver';
 import { CompletedRequestObject } from './organization-request.model';
+import { RequestService } from './request.service';
 
 @Injectable({
   providedIn: 'root'
@@ -28,9 +29,9 @@ export class OrganizationRequestFormService {
     requestToJoinForm: any
   ) {
     completedRequestObject.id = this.id;
-    completedRequestObject.organization = organization;
-    completedRequestObject.profile = profile;
-    completedRequestObject.requestToJoinForm = requestToJoinForm;
+    completedRequestObject.organization_id = organization.id;
+    completedRequestObject.profile_id = profile.id;
+    // completedRequestObject.requestToJoinForm = requestToJoinForm;
     console.log(completedRequestObject);
     this.listOfRequests.push(completedRequestObject);
     console.log(this.listOfRequests);
@@ -40,8 +41,8 @@ export class OrganizationRequestFormService {
   hasMadeRequest(organization: Organization, profile: Profile): boolean {
     for (const request of this.listOfRequests) {
       if (
-        request.organization.id === organization.id &&
-        request.profile.id === profile.id
+        request.organization_id === organization.id &&
+        request.profile_id === profile.id
       ) {
         return true;
       }

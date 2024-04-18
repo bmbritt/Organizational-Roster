@@ -6,6 +6,8 @@ this module serves as a helper to bring them all in at once.
 
 import pytest
 from sqlalchemy.orm import Session
+
+from backend.test.services.organization import request_test_data
 from .organization import organization_test_data, member_test_data
 from .event import event_test_data
 from . import permission_data, role_data, user_data
@@ -23,6 +25,7 @@ def setup_insert_data_fixture(session: Session):
     organization_test_data.insert_fake_data(session)
     event_test_data.insert_fake_data(session)
     member_test_data.insert_fake_data(session)
+    request_test_data.insert_fake_data(session)
 
     session.commit()
     yield

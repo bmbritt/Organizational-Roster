@@ -62,7 +62,6 @@ class MemberService:
         self._session.commit()
         return member_entity.to_model()
 
-
     # TODO these functions only works if it is a public organization and they are adding themselves to the org
     # otherwise should create a new function to add someone else to it similar to delete member function
     def add_member_public(self, subject: User, organization: Organization) -> Member:

@@ -3,6 +3,8 @@
 import pytest
 from unittest.mock import create_autospec
 from sqlalchemy.orm import Session
+
+from backend.services.request import RequestService
 from ...services import (
     PermissionService,
     UserService,
@@ -10,7 +12,7 @@ from ...services import (
     OrganizationService,
     EventService,
     RoomService,
-    MemberService
+    MemberService,
 )
 
 __authors__ = ["Kris Jordan", "Ajay Gandecha"]
@@ -63,6 +65,12 @@ def room_svc(session: Session):
     """RoomService fixture."""
     return RoomService(session, PermissionService(session))
 
+
 @pytest.fixture()
 def member_service_integration(session: Session):
     return MemberService(session, PermissionService(session))
+
+
+@pytest.fixture()
+def request_service_integration(session: Session):
+    return RequestService(session, PermissionService(session))

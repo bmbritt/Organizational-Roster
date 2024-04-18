@@ -22,6 +22,7 @@ from .organization_entity import OrganizationEntity
 from .event_entity import EventEntity
 from .event_registration_entity import EventRegistrationEntity
 from .member_entity import MemberEntity
+from .request_entity import RequestEntity
 
 __authors__ = ["Kris Jordan"]
 __copyright__ = "Copyright 2023"

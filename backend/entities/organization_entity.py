@@ -57,6 +57,9 @@ class OrganizationEntity(EntityBase):
     )
 
     members: Mapped[list["MemberEntity"]] = relationship(back_populates="organization")
+    requests: Mapped[list["RequestEntity"]] = relationship(
+        back_populates="organization"
+    )
 
     @classmethod
     def from_model(cls, model: Organization) -> Self:
@@ -92,7 +95,6 @@ class OrganizationEntity(EntityBase):
         Returns:
             Organization: `Organization` object from the entity
         """
-
 
         return Organization(
             id=self.id,

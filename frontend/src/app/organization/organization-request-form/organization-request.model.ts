@@ -7,7 +7,10 @@ import { Organization } from '../organization.model';
 
 export interface CompletedRequestObject {
   id: number | null;
-  organization: Organization;
-  requestToJoinForm: any;
-  profile: Profile;
+  name: string | undefined | null;
+  organization_id: number | null;
+  strength: string | undefined;
+  reasoning: string | undefined;
+  major: string | undefined;
+  profile_id: number | null | undefined;
 }

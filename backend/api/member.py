@@ -4,7 +4,7 @@ Member routes that are use to create, retrieve, and update Members within an org
 """
 
 from fastapi import APIRouter, Depends, HTTPException
-from backend.models.organization import Organization
+
 
 from backend.services.organization import OrganizationService
 
