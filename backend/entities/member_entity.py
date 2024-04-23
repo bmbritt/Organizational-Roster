@@ -18,7 +18,8 @@ class MemberEntity(EntityBase):
 
     # name of the member e.g. "Kris Jordan"
     name: Mapped[str] = mapped_column(String, nullable=False, default="")
-    affiliation: Mapped[str] = mapped_column(String, nullable=False, default="")
+    role: Mapped[str] = mapped_column(String, nullable=False, default="Member")
+    title: Mapped[str] = mapped_column(String, nullable=False, default="")
     profile_id: Mapped[int] = mapped_column(Integer, nullable=False)
     # Establishes one to many with organizationEntity
     organization_id: Mapped[int] = mapped_column(ForeignKey("organization.id"))
@@ -32,8 +33,9 @@ class MemberEntity(EntityBase):
             id=model.id,
             name=model.name,
             profile_id=model.profile_id,
-            affiliation=model.affiliation,
+            role=model.role,
             organization_id=model.organization_id,
+            title=model.title,
         )
 
     def to_model(self) -> Member:
@@ -47,6 +49,7 @@ class MemberEntity(EntityBase):
             id=self.id,
             name=self.name,
             profile_id=self.profile_id,
-            affiliation=self.affiliation,
+            role=self.role,
             organization_id=self.organization_id,
+            title=self.title,
         )

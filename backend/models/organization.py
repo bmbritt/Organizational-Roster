@@ -30,3 +30,4 @@ class Organization(BaseModel):
     youtube: str
     heel_life: str
     public: bool
+    closed: bool

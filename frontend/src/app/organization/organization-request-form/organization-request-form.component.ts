@@ -68,7 +68,7 @@ export class OrganizationRequestFormComponent {
       profile: Profile;
       organization: Organization;
     };
-    //TODO THIS COULD CAUSE AN ERROR LATER BE ON THE LOOKOUT! WE PASS AN OBJECT INTO THIS LATER IN THE CODE SO COULD REINTERPRET IT AS A INT
+
     this.profile = data.profile;
     this.organization = data.organization;
 
@@ -140,11 +140,6 @@ export class OrganizationRequestFormComponent {
       };
       this.requestService.addRequest(this.organization_slug, newRequest);
       this.onSuccess(this.organization);
-
-      //TODO THIS SHOULD JUST CALL SERVICE FUNCTIONS THAT SEND THE REQUEST TO THE BACKEND TO BE STORED
-      //TODO MAKE SURE THAT THE USER DOESNT HAVE A REQUEST TO JOIN FOR THIS CLUB ALREADY IN THE DATABASE FOR THIS ORGANIZATION
-      // TODO THE REQUESTS PER ORGANIZATION SHOULD BE A NEW COLUMN IN EACH ORG
-      //TODO this entire section needs to be
     }
   }
 }

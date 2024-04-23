@@ -77,7 +77,8 @@ export class OrganizationService {
       id: null,
       name: profile.first_name + ' ' + profile.last_name,
       profile_id: profile.id,
-      affiliation: '',
+      role: 'Member',
+      title: '',
       organization_id: organization.id
     };
   }

@@ -86,9 +86,7 @@ export class OrganizationDetailsInfoCard implements OnInit, OnDestroy {
   }
 
   addMember(organization: Organization, profile: Profile): void {
-    // SUBSCRIBE in component typescript to result of service call
     this.orgService2.addMember(organization, profile).subscribe({
-      // post snackbar messages on success or failure
       next: (member) => this.onSuccess(member),
       error: (err) => this.onError(err)
     });

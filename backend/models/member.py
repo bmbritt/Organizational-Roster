@@ -11,5 +11,10 @@ class Member(BaseModel):
     id: int | None
     name: str
     profile_id: int
-    affiliation: str
+
+    # Role is required (e.g. President, Officer, Admin, Member)
+    role: str
+
+    # Title is optional, default to empty string
+    title: str
     organization_id: int

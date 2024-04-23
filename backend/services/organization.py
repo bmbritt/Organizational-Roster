@@ -160,6 +160,7 @@ class OrganizationService:
         obj.youtube = organization.youtube
         obj.heel_life = organization.heel_life
         obj.public = organization.public
+        obj.closed = organization.closed
 
         # Save changes
         self._session.commit()
@@ -203,14 +204,23 @@ class OrganizationService:
     def create_member(self, subject: User, organization: Organization) -> Member:
         if organization.id is None:
             raise ValueError("Organization must exist to add a member.")
-        if(subject.id):
-            member_entity = MemberEntity.from_model(organization, Member(id=None, name=subject.first_name +' '+subject.last_name,profile_id=subject.id ,affiliation="General Member", organization_id=organization.id))
+        if subject.id:
+            member_entity = MemberEntity.from_model(
+                organization,
+                Member(
+                    id=None,
+                    name=subject.first_name + " " + subject.last_name,
+                    profile_id=subject.id,
+                    affiliation="General Member",
+                    organization_id=organization.id,
+                ),
+            )
 
         self._session.add(member_entity)
         self._session.commit()
 
         return member_entity.to_model()
-    
+
     def get_by_id(self, id: int) -> OrganizationDetails:
         """
         Get the organization from a slug

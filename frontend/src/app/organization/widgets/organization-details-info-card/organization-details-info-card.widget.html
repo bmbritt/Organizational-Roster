@@ -1,4 +1,3 @@
-<!-- eslint-disable prettier/prettier -->
 <mat-card
   class="organization-card"
   *ngIf="organization !== undefined"
@@ -29,22 +28,39 @@
             {{ organization!.name }}
           </mat-card-title>
         </div>
-        <div
-  [ngStyle]="{
-    'background-color': organization.public ? 'green' : 'yellow',
-    'color': 'black',
-    'display': 'inline-block',
-    'border-radius': '30px',
-    'margin-left': '325px',
-    'padding': '0 5px'
-  }">
-  <div *ngIf="organization.public !== undefined">
-    <p>{{ organization.public ? 'Open' : 'Private' }}</p>
-  </div> 
+  <div>
+  <div [ngStyle]="{'background-color': 'red',
+  'color': 'black',
+  'display': 'inline-block',
+  'border-radius': '30px',
+  'margin-left': '325px'
+  
+  }"*ngIf="organization.closed">
+    <p>Closed</p>
+  </div>
+
+
+  <div [ngStyle]="{'background-color': 'green',
+  'color': 'black',
+  'display': 'inline-block',
+  'border-radius': '30px',
+  'margin-left': '325px'
+  
+  }" *ngIf="!organization.closed && organization.public" >
+    <p>Public</p>
+  </div>
+  <div [ngStyle]="{'background-color': 'yellow',
+  'color': 'black',
+  'display': 'inline-block',
+  'border-radius': '30px',
+  'margin-left': '325px'
+  
+  }"*ngIf="!organization.closed && !organization.public" >
+    <p>Private</p>
+  </div>
 </div>
 
       </div>
-<!--TODO CHANGE THE COLOR OF THE BACKGROUND OF PRIVATE/PUBLIC SO THAT IT IS EASILY SEEN  BY THE USER,,, LOOK AT ex02 TO SEE AN EXAMPLE-->
 
       <!-- Organization Description -->
       <p
@@ -90,12 +106,12 @@
             </button>
           </a>
 
-
+          <div [ngStyle]="{'display': 'inline-block'}"*ngIf="!organization.closed">
           <button mat-button *ngIf="(profile !== undefined && this.joinButtonVisible && organization.public)" (click)="addMember(organization,profile)">Join Organization</button>
           <a [routerLink]="['/organizations', this.organization.slug, 'request']"><button mat-button *ngIf="(profile !== undefined && this.joinButtonVisible && !organization.public && !this.orgRequestService.hasMadeRequest(organization, profile))">Request to Join Organization</button></a>
           <button mat-button color="warn" *ngIf="(profile !== undefined && this.joinButtonVisible && !organization.public && this.orgRequestService.hasMadeRequest(organization, profile))">Your Request to Join is Pending</button>
           <button mat-button *ngIf="(profile !== undefined && !this.joinButtonVisible)" (click)="leaveOrganization(profile,organization)">Leave Organization</button>
-
+          </div>
         </div>
       </div>
     </div>

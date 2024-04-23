@@ -11,7 +11,6 @@ from ..user_data import root, ambassador, user
 from ..reset_table_id_seq import reset_table_id_seq
 
 
-
 # Sample Data Objects
 # These sample entities will be used to generate the test data.
 
@@ -19,7 +18,8 @@ member = Member(
     id=2,
     name="Evan Menendez",
     profile_id=1,
-    affiliation="General Member",
+    role="Member",
+    title="",
     organization_id=1,
 )
 
@@ -27,7 +27,8 @@ member2 = Member(
     id=3,
     name="Evan Menendez",
     profile_id=2,
-    affiliation="General Member",
+    role="Member",
+    title="",
     organization_id=1,
 )
 
@@ -35,17 +36,19 @@ member3 = Member(
     id=4,
     name="Evan Menendez",
     profile_id=3,
-    affiliation="General Member",
+    role="Member",
+    title="",
     organization_id=1,
 )
 
-members = [member,member2,member3]
+members = [member, member2, member3]
 
 member_to_add = Member(
     id=5,
     name="Evan Menendez",
     profile_id=4,
-    affiliation="General Member",
+    role="Member",
+    title="",
     organization_id=1,
 )
 
@@ -53,7 +56,8 @@ member_invalid = Member(
     id=4,
     name="Evan Menendez",
     profile_id=4,
-    affiliation="General Member",
+    role="Member",
+    title="",
     organization_id=1,
 )
 

@@ -28,6 +28,7 @@ appteam = OrganizationEntity(
     youtube="",
     heel_life="https://heellife.unc.edu/organization/appteamcarolina",
     public=False,
+    closed=True,
 )
 
 acm = OrganizationEntity(
@@ -45,6 +46,7 @@ acm = OrganizationEntity(
     youtube="https://www.youtube.com/channel/UCkgDDL-DKsFJKpld2SosbxA",
     heel_life="https://heellife.unc.edu/organization/acm-at-carolina",
     public=False,
+    closed=True,
 )
 
 bit = OrganizationEntity(
@@ -62,6 +64,7 @@ bit = OrganizationEntity(
     youtube="",
     heel_life="https://heellife.unc.edu/organization/bit",
     public=False,
+    closed=True,
 )
 
 cads = Organization(
@@ -79,6 +82,7 @@ cads = Organization(
     youtube="https://www.youtube.com/channel/UCO44Yjhjuo5-TLUCAaP0-cQ",
     heel_life="https://heellife.unc.edu/organization/carolinadatascience",
     public=True,
+    closed=True,
 )
 
 carvr = OrganizationEntity(
@@ -96,6 +100,7 @@ carvr = OrganizationEntity(
     youtube="",
     heel_life="https://heellife.unc.edu/organization/carvr",
     public=False,
+    closed=True,
 )
 
 cssg = Organization(
@@ -113,6 +118,7 @@ cssg = Organization(
     youtube="",
     heel_life="https://heellife.unc.edu/organization/cssg",
     public=False,
+    closed=True,
 )
 
 ctf = OrganizationEntity(
@@ -130,6 +136,7 @@ ctf = OrganizationEntity(
     youtube="",
     heel_life="https://heellife.unc.edu/organization/ntropy-unc",
     public=False,
+    closed=True,
 )
 
 enablingtech = OrganizationEntity(
@@ -147,6 +154,7 @@ enablingtech = OrganizationEntity(
     youtube="",
     heel_life="https://heellife.unc.edu/organization/enablingtechnologyclub",
     public=False,
+    closed=True,
 )
 
 esports = OrganizationEntity(
@@ -164,6 +172,7 @@ esports = OrganizationEntity(
     youtube="https://www.youtube.com/carolinaesports",
     heel_life="https://heellife.unc.edu/organization/esports",
     public=False,
+    closed=True,
 )
 
 gamedev = OrganizationEntity(
@@ -181,6 +190,7 @@ gamedev = OrganizationEntity(
     youtube="",
     heel_life="https://heellife.unc.edu/organization/uncgamedev",
     public=False,
+    closed=True,
 )
 
 gwc = OrganizationEntity(
@@ -198,6 +208,7 @@ gwc = OrganizationEntity(
     youtube="",
     heel_life="",
     public=False,
+    closed=True,
 )
 
 hacknc = OrganizationEntity(
@@ -215,6 +226,7 @@ hacknc = OrganizationEntity(
     youtube="https://www.youtube.com/channel/UCDRN6TMC27uSDsZosIwUrZg",
     heel_life="https://heellife.unc.edu/organization/hacknc",
     public=False,
+    closed=True,
 )
 
 ktp = OrganizationEntity(
@@ -232,6 +244,7 @@ ktp = OrganizationEntity(
     youtube="",
     heel_life="https://heellife.unc.edu/organization/uncktp",
     public=False,
+    closed=True,
 )
 
 pearlhacks = OrganizationEntity(
@@ -249,6 +262,7 @@ pearlhacks = OrganizationEntity(
     youtube="",
     heel_life="https://heellife.unc.edu/organization/pearlhacks",
     public=False,
+    closed=True,
 )
 
 pm = OrganizationEntity(
@@ -266,6 +280,7 @@ pm = OrganizationEntity(
     youtube="",
     heel_life="",
     public=False,
+    closed=True,
 )
 
 queerhack = OrganizationEntity(
@@ -283,6 +298,7 @@ queerhack = OrganizationEntity(
     youtube="",
     heel_life="https://heellife.unc.edu/organization/queer_hack",
     public=False,
+    closed=True,
 )
 
 wics = OrganizationEntity(
@@ -300,6 +316,7 @@ wics = OrganizationEntity(
     youtube="",
     heel_life="https://heellife.unc.edu/organization/wins",
     public=False,
+    closed=True,
 )
 
 organizations = [

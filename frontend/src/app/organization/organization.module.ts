@@ -28,6 +28,8 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 import { OrganizationPageComponent } from './organization-page/organization-page.component';
 import { OrganizationRoutingModule } from './organization-routing.module';
@@ -84,7 +86,11 @@ import { MatNativeDateModule } from '@angular/material/core';
     RouterModule,
     SharedModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    ReactiveFormsModule,
+    MatRadioModule,
+    MatCardModule,
+    MatButtonToggleModule
   ]
 })
 export class OrganizationModule {}

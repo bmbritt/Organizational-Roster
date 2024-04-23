@@ -50,6 +50,7 @@ class OrganizationEntity(EntityBase):
     heel_life: Mapped[str] = mapped_column(String)
     # Whether the organization can be joined by anyone or not
     public: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)
+    closed: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)
 
     # NOTE: This field establishes a one-to-many relationship between the organizations and events table.
     events: Mapped[list["EventEntity"]] = relationship(
@@ -86,6 +87,7 @@ class OrganizationEntity(EntityBase):
             youtube=model.youtube,
             heel_life=model.heel_life,
             public=model.public,
+            closed=model.closed,
         )
 
     def to_model(self) -> Organization:
@@ -111,6 +113,7 @@ class OrganizationEntity(EntityBase):
             youtube=self.youtube,
             heel_life=self.heel_life,
             public=self.public,
+            closed=self.closed,
         )
 
     def to_details_model(self) -> OrganizationDetails:
@@ -135,5 +138,6 @@ class OrganizationEntity(EntityBase):
             youtube=self.youtube,
             heel_life=self.heel_life,
             public=self.public,
+            closed=self.closed,
             events=[event.to_model() for event in self.events],
         )

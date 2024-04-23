@@ -37,16 +37,14 @@ export class RosterService {
       });
   }
 
-  //   updateRoster(): void {
-  //     this.http.get<Member[]>().subscribe((data) => {
-  //       this.rosterSubject.next(data);
-  //     });
-  //   }
-
   addMember(organizationSlug: string, subject: Profile): void {
     this.http
       .post<Member>('/api/members/organization/' + organizationSlug, subject)
       .pipe(tap(() => this.loadMembersByOrganization(organizationSlug)))
       .subscribe();
+  }
+
+  addNonSelfMember(): void {
+    return;
   }
 }

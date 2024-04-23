@@ -46,16 +46,6 @@ class MemberService:
 
         return [member.to_model() for member in memberEntities]
 
-    # def deleteMember(self, subject: User, id: int) -> None:  # type: ignore
-
-    #     member = self._session.get(MemberEntity, id)
-
-    #     if member is None:
-    #         raise ResourceNotFoundException(f"No event found with matching ID: {id}")
-    #     self._session.delete(member)
-
-    #     self._session.commit()
-
     def add(self, member: Member) -> Member:
         member_entity = MemberEntity.from_model(member)
         self._session.add(member_entity)
@@ -72,16 +62,17 @@ class MemberService:
             raise ValueError("Subject must have a valid ID.")
 
         full_name = f"{subject.first_name} {subject.last_name}"
+
         member_data = Member(
             id=None,
             name=full_name,
             profile_id=subject.id,
-            affiliation="General Member",
+            role="Member",
+            title="",
             organization_id=organization.id,
         )
 
         member_entity = MemberEntity.from_model(member_data)
-
         self._session.add(member_entity)
         self._session.commit()
 

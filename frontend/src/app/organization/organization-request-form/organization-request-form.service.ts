@@ -31,10 +31,7 @@ export class OrganizationRequestFormService {
     completedRequestObject.id = this.id;
     completedRequestObject.organization_id = organization.id;
     completedRequestObject.profile_id = profile.id;
-    // completedRequestObject.requestToJoinForm = requestToJoinForm;
-    console.log(completedRequestObject);
     this.listOfRequests.push(completedRequestObject);
-    console.log(this.listOfRequests);
     this.id++;
   }
 

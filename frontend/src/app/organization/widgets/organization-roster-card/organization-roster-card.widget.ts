@@ -19,7 +19,6 @@ import { Observable } from 'rxjs';
 import { Member } from '../../organization-roster.model';
 import { OrganizationService } from '../../organization.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { async } from 'rxjs';
 
 @Component({
   selector: 'organization-roster-card',
@@ -46,6 +45,7 @@ export class OrganizationRosterCard implements OnInit, OnDestroy {
   constructor(
     private breakpointObserver: BreakpointObserver,
     private route: ActivatedRoute,
+    private router: Router,
     private permission: PermissionService,
     private orgService3: OrganizationService
   ) {}
@@ -57,7 +57,6 @@ export class OrganizationRosterCard implements OnInit, OnDestroy {
     );
   }
 
-  //TODO TAKE LIST OF OBSERVABLE MEMBERS CHANGE INTO NORMAL MEMBERS AND ACCESS THE NAME PROPERTY
   /** Runs whenever the view is rendered initally on the screen */
   ngOnInit(): void {
     this.isHandsetSubscription = this.initHandset();
@@ -92,9 +91,5 @@ export class OrganizationRosterCard implements OnInit, OnDestroy {
       .observe(Breakpoints.TabletLandscape)
       .pipe(map((result) => result.matches))
       .subscribe((isTablet) => (this.isTablet = isTablet));
-  }
-
-  contactPopup() {
-    alert('contact@unc.edu');
   }
 }

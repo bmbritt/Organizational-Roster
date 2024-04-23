@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 /**
  * The Organization Editor Component allows organization managers to edit information
  * about their organization which is publically displayed on the organizations page.
@@ -16,7 +17,12 @@ import {
   Router,
   RouterStateSnapshot
 } from '@angular/router';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  Validators,
+  FormGroup
+} from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { profileResolver } from 'src/app/profile/profile.resolver';
 import { PermissionService } from 'src/app/permission.service';
@@ -125,7 +131,7 @@ export class OrganizationEditorComponent {
     };
     this.profile = data.profile;
     this.organization = data.organization;
-    //console.log(this.organization.closed);
+
     /** Set organization form data */
     this.organizationForm.setValue({
       name: this.organization.name,
@@ -141,7 +147,7 @@ export class OrganizationEditorComponent {
       youtube: this.organization.youtube,
       heel_life: this.organization.heel_life,
       public: this.organization.public,
-      closed: false
+      closed: this.organization.closed
     });
 
     /** Get id from the url */
@@ -154,7 +160,6 @@ export class OrganizationEditorComponent {
    */
   onSubmit(): void {
     if (this.organizationForm.value) {
-      console.log(this.organization);
       Object.assign(this.organization, this.organizationForm.value);
       if (this.organization_slug == 'new') {
         this.organizationService
