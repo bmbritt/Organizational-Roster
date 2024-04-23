@@ -71,7 +71,7 @@ export class OrganizationDetailsComponent {
 
   /** Whether or not the user has permission to update events. */
   public eventCreationPermission$: Observable<boolean>;
-  public roster: string[];
+  public roster: Member[];
   public orgPresident: string;
 
   /** Constructs the Organization Detail component */
@@ -95,8 +95,8 @@ export class OrganizationDetailsComponent {
     this.organization = data.organization;
     orgservice
       .getMembersByOrganization(organization_slug)
-      .pipe(map((member: Member[]) => member.map((member) => member.name)))
-      .subscribe((roster: string[]) => {
+      .pipe(map((member: Member[]) => member))
+      .subscribe((roster: Member[]) => {
         this.roster = roster;
       });
 

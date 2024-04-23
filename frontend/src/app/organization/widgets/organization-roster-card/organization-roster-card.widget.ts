@@ -19,6 +19,7 @@ import { Observable } from 'rxjs';
 import { Member } from '../../organization-roster.model';
 import { OrganizationService } from '../../organization.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NONE_TYPE } from '@angular/compiler';
 
 @Component({
   selector: 'organization-roster-card',
@@ -30,7 +31,7 @@ export class OrganizationRosterCard implements OnInit, OnDestroy {
   @Input() organization?: Organization;
   /** The currently logged in user */
   @Input() profile?: Profile;
-  @Input() roster?: string[];
+  @Input() roster?: Member[];
 
   public orgService = OrganizationService;
   /** Holds data on whether or not the user is on a mobile device */
@@ -65,8 +66,8 @@ export class OrganizationRosterCard implements OnInit, OnDestroy {
     this.orgService3
 
       .getMembersByOrganization(organization_slug)
-      .pipe(map((member: Member[]) => member.map((member) => member.name)))
-      .subscribe((roster: string[]) => {
+      .pipe(map((member: Member[]) => member))
+      .subscribe((roster: Member[]) => {
         this.roster = roster;
       });
   }
@@ -91,5 +92,48 @@ export class OrganizationRosterCard implements OnInit, OnDestroy {
       .observe(Breakpoints.TabletLandscape)
       .pipe(map((result) => result.matches))
       .subscribe((isTablet) => (this.isTablet = isTablet));
+  }
+
+  public getPresident(): Member {
+    if (this.roster != undefined) {
+      for (let i = 0; i < this.roster.length; i++) {
+        if (this.roster[i].role == 'President') {
+          return this.roster[i];
+          break;
+        }
+      }
+    }
+    return {
+      id: null,
+      name: '',
+      profile_id: null,
+      role: '',
+      title: '',
+      organization_id: null
+    };
+  }
+
+  public getOfficers(): Member[] {
+    let result: Member[] = [];
+    if (this.roster != undefined) {
+      for (let i = 0; i < this.roster.length; i++) {
+        if (this.roster[i].role == 'Officer') {
+          result.push(this.roster[i]);
+        }
+      }
+    }
+    return result;
+  }
+
+  public getGeneralMembers(): Member[] {
+    let result: Member[] = [];
+    if (this.roster != undefined) {
+      for (let i = 0; i < this.roster.length; i++) {
+        if (this.roster[i].role == 'Member') {
+          result.push(this.roster[i]);
+        }
+      }
+    }
+    return result;
   }
 }

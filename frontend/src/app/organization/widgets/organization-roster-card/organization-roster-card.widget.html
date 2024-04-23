@@ -1,3 +1,4 @@
+<!-- eslint-disable prettier/prettier -->
 
 
 <mat-card appearance="outlined">
@@ -14,25 +15,32 @@
 
     <mat-card>
         <h4>President </h4>
-        <p class="title">
-          {{organization?.president}}
+        <p *ngIf="getPresident().id !== null" class="title">
+          {{getPresident().name}}
+          <button mat-button>Edit</button>
+          <button mat-button>Delete</button>
         </p>
     </mat-card>
 
     <mat-card>
         <h4>Officer(s) </h4>
-        <p class="title">
-          {{organization?.officers}}
-        </p>
+        <div *ngIf="getOfficers().length > 0" class="title">
+          <p *ngFor="let officer of getOfficers()">
+            {{officer.name}}
+            <button mat-button>Edit</button>
+            <button mat-button>Delete</button>
+          </p>
+        </div>
     </mat-card>
 
     <mat-card>
         <h4> Members </h4>
-        <div *ngFor="let member of roster">
-          
-            <mat-list-item>{{member}} 
-            <button mat-button>Remove</button> 
-            <button mat-button>Edit</button></mat-list-item>
+        <div *ngIf="getGeneralMembers().length > 0" class="title">
+          <p *ngFor="let member of getGeneralMembers()">
+            {{member.name}}
+            <button mat-button>Edit</button>
+            <button mat-button>Delete</button>
+          </p>
         </div>
     </mat-card>
 

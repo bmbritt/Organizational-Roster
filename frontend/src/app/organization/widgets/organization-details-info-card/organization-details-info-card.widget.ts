@@ -32,7 +32,7 @@ export class OrganizationDetailsInfoCard implements OnInit, OnDestroy {
   /** The currently logged in user */
   @Input() profile?: Profile;
   @Input() member?: Member;
-  @Input() roster?: string[] | null;
+  @Input() roster?: Member[] | null;
 
   public orgService = OrganizationService;
   /** Holds data on whether or not the user is on a mobile device */
