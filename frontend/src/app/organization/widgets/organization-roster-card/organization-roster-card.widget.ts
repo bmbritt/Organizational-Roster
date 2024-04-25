@@ -136,4 +136,18 @@ export class OrganizationRosterCard implements OnInit, OnDestroy {
     }
     return result;
   }
+
+  private onSuccess(member: any): any {
+    return member;
+  }
+  private onError(err: any): void {}
+
+  public removeMember(member: Member) {
+    this.orgService3.removeMember(member).subscribe({
+      next: (any) => this.onSuccess(any),
+      error: (any) => this.onError(any)
+    });
+
+    location.reload();
+  }
 }

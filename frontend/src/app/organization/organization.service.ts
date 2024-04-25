@@ -89,6 +89,10 @@ export class OrganizationService {
     );
   }
 
+  removeMember(member: Member) {
+    return this.http.delete<Member>('/api/members/delete/' + member.id);
+  }
+
   getMembersByOrganization(slug: string | undefined): Observable<Member[]> {
     return this.http.get<Member[]>('/api/members/organization/' + slug);
   }

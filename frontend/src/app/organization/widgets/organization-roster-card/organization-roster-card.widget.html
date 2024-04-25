@@ -3,49 +3,45 @@
 
 <mat-card appearance="outlined">
 
-    <mat-card-title>Roster</mat-card-title>
-    <button mat-button>Add Member</button>
-    <a
-            [routerLink]="['/organizations', organization!.slug, 'roster', 'add']"
-            *ngIf="checkPermissions() | async">
-            <button mat-icon-button color="basic">
-              <mat-icon>edit</mat-icon>
-            </button>
-    </a>
+  <mat-card-title>Roster</mat-card-title>
+  <a [routerLink]="['/organizations', this.organization?.slug, 'add']"><button mat-button>Add Member</button></a>
+  <a
+          [routerLink]="['/organizations', organization!.slug, 'roster', 'add']"
+          *ngIf="checkPermissions() | async">
+          <button mat-icon-button color="basic">
+            <mat-icon>edit</mat-icon>
+          </button>
+  </a>
 
-    <mat-card>
-        <h4>President </h4>
-        <p *ngIf="getPresident().id !== null" class="title">
-          {{getPresident().name}}
+  <mat-card>
+      <h4>President </h4>
+      <p *ngIf="getPresident().id !== null" class="title">
+        {{getPresident().name}}
+        <button mat-button>Edit</button>
+        <button mat-button>Delete</button>
+      </p>
+  </mat-card>
+
+  <mat-card>
+      <h4>Officer(s) </h4>
+      <div *ngIf="getOfficers().length > 0" class="title">
+        <p *ngFor="let officer of getOfficers()">
+          {{officer.name}}
           <button mat-button>Edit</button>
           <button mat-button>Delete</button>
         </p>
-    </mat-card>
+      </div>
+  </mat-card>
 
-    <mat-card>
-        <h4>Officer(s) </h4>
-        <div *ngIf="getOfficers().length > 0" class="title">
-          <p *ngFor="let officer of getOfficers()">
-            {{officer.name}}
-            <button mat-button>Edit</button>
-            <button mat-button>Delete</button>
-          </p>
-        </div>
-    </mat-card>
-
-    <mat-card>
-        <h4> Members </h4>
-        <div *ngIf="getGeneralMembers().length > 0" class="title">
-          <p *ngFor="let member of getGeneralMembers()">
-            {{member.name}}
-            <button mat-button>Edit</button>
-            <button mat-button>Delete</button>
-          </p>
-        </div>
-    </mat-card>
+  <mat-card>
+      <h4> Members </h4>
+      <div *ngIf="getGeneralMembers().length > 0" class="title">
+        <p *ngFor="let member of getGeneralMembers()">
+          {{member.name}}
+          <button mat-button>Edit</button>
+          <button mat-button (click)="this.removeMember(member)">Delete</button>
+        </p>
+      </div>
+  </mat-card>
 
 </mat-card>
-
-
-
-

@@ -97,3 +97,21 @@ class MemberService:
 
         self._session.delete(member)
         self._session.commit()
+
+    def deleteOther(self, memberID: int) -> None:
+        member = (
+            self._session.query(MemberEntity)
+            .filter(
+                and_(
+                    MemberEntity.id == memberID,
+                    True,
+                )
+            )
+            .one_or_none()
+        )
+
+        if member is None:
+            raise ResourceNotFoundException(f"No matching member found.")
+
+        self._session.delete(member)
+        self._session.commit()

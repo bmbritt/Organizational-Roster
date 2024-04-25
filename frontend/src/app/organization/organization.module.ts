@@ -48,6 +48,7 @@ import { OrganizationRosterCard } from './widgets/organization-roster-card/organ
 import { OrganizationRequestFormComponent } from './organization-request-form/organization-request-form.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { AddMemberFormComponent } from './add-member-form/add-member-form.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     OrganizationDetailsComponent,
     OrganizationEditorComponent,
     OrganizationRequestFormComponent,
+    AddMemberFormComponent,
 
     // Pipes
     OrganizationFilterPipe,
@@ -63,7 +65,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     OrganizationCard,
     OrganizationDetailsInfoCard,
     OrganizationNotFoundCard,
-    OrganizationRosterCard
+    OrganizationRosterCard,
+    AddMemberFormComponent
   ],
   imports: [
     CommonModule,

@@ -48,3 +48,8 @@ def delete(
 ):
     organization = organization_service.get_by_slug(slug)
     return member_service.deleteSelf(subject, organization)
+
+
+@api.delete("/delete/{memberID}", tags=["Members"])
+def deleteOther(memberID: int, member_service: MemberService = Depends()):
+    return member_service.deleteOther(memberID)
