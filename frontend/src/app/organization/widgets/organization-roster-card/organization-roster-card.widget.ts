@@ -32,6 +32,7 @@ export class OrganizationRosterCard implements OnInit, OnDestroy {
   /** The currently logged in user */
   @Input() profile?: Profile;
   @Input() roster?: Member[];
+  @Input() fullWidth: boolean = false;
 
   public orgService = OrganizationService;
   /** Holds data on whether or not the user is on a mobile device */

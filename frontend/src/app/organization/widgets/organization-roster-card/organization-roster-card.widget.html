@@ -1,9 +1,14 @@
 <!-- eslint-disable prettier/prettier -->
 
 
-<mat-card appearance="outlined">
+<mat-card class="roster-section" appearance="outlined" [style]="
+fullWidth
+  ? 'margin: 0 !important;max-width: 100%; padding: 16px; '
+  : 'padding: 16px; margin: 0px;'
+" >
 
-  <mat-card-title>Roster</mat-card-title>
+
+      <mat-card-title>Roster</mat-card-title>
   <a [routerLink]="['/organizations', this.organization?.slug, 'add']"><button mat-button>Add Member</button></a>
   <a
           [routerLink]="['/organizations', organization!.slug, 'roster', 'add']"
@@ -12,36 +17,74 @@
             <mat-icon>edit</mat-icon>
           </button>
   </a>
+    <mat-divider class="list-divider" />
 
-  <mat-card>
-      <h4>President </h4>
-      <p *ngIf="getPresident().id !== null" class="title">
-        {{getPresident().name}}
-        <button mat-button>Edit</button>
-        <button mat-button>Delete</button>
-      </p>
-  </mat-card>
 
-  <mat-card>
-      <h4>Officer(s) </h4>
-      <div *ngIf="getOfficers().length > 0" class="title">
-        <p *ngFor="let officer of getOfficers()">
-          {{officer.name}}
+
+    <mat-card appearance="outlined">
+      <div class ="inner-column">
+        <div class = header-section>
+        <p class="pres-name">President </p>
+        </div>
+        <div class ="content-section"> 
+        <div *ngIf="getPresident().id !== null" class="title">
+          {{getPresident().name}}
           <button mat-button>Edit</button>
           <button mat-button>Delete</button>
-        </p>
+          <br>
+        </div>
+        </div>
       </div>
-  </mat-card>
+     </mat-card> 
 
-  <mat-card>
-      <h4> Members </h4>
-      <div *ngIf="getGeneralMembers().length > 0" class="title">
-        <p *ngFor="let member of getGeneralMembers()">
-          {{member.name}}
-          <button mat-button>Edit</button>
-          <button mat-button (click)="this.removeMember(member)">Delete</button>
-        </p>
+
+
+     <mat-card appearance="outlined">
+      <div class ="inner-column">
+        <div class="header-section">
+        <p class="pres-name">Officer(s) </p>
+        </div>
+        <div *ngIf="getOfficers().length > 0" class="title">
+          <div *ngFor="let officer of getOfficers()">
+            {{officer.name}}
+            <button mat-button>Edit</button>
+            <button mat-button>Delete</button>
+            <br>
+          </div>
+        </div>
       </div>
-  </mat-card>
+    </mat-card> 
+ 
+
+    <mat-card appearance="outlined">
+      <div class ="inner-column">
+        <div class="header-section">
+        <p class="pres-name">Members </p>
+        </div>
+        <div *ngIf="getGeneralMembers().length > 0" class="title">
+          <div *ngFor="let member of getGeneralMembers()">
+            {{member.name}}
+            <button mat-button>Edit</button>
+            <button mat-button (click)="this.removeMember(member)">Delete</button>
+            <br>
+          </div>
+        </div>
+      </div>
+    </mat-card>
+
+
+    <button mat-button>Add Member</button>
+    <a
+            [routerLink]="['/organizations', organization!.slug, 'roster', 'add']"
+            *ngIf="checkPermissions() | async">
+            <button mat-icon-button color="basic">
+              <mat-icon>edit</mat-icon>
+            </button>
+    </a>
+
+</mat-card>
+
+
+
 
 </mat-card>
