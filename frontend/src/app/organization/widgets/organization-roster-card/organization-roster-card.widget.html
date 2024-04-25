@@ -9,14 +9,6 @@ fullWidth
 
 
       <mat-card-title>Roster</mat-card-title>
-  <a [routerLink]="['/organizations', this.organization?.slug, 'add']"><button mat-button>Add Member</button></a>
-  <a
-          [routerLink]="['/organizations', organization!.slug, 'roster', 'add']"
-          *ngIf="checkPermissions() | async">
-          <button mat-icon-button color="basic">
-            <mat-icon>edit</mat-icon>
-          </button>
-  </a>
     <mat-divider class="list-divider" />
 
 
@@ -73,7 +65,8 @@ fullWidth
     </mat-card>
 
 
-    <button mat-button>Add Member</button>
+    
+    <a [routerLink]="['/organizations', this.organization?.slug, 'add']"><button mat-button color="warn">Add Member</button></a>
     <a
             [routerLink]="['/organizations', organization!.slug, 'roster', 'add']"
             *ngIf="checkPermissions() | async">
@@ -84,7 +77,3 @@ fullWidth
 
 </mat-card>
 
-
-
-
-</mat-card>
