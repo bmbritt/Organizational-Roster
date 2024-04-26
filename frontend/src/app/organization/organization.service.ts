@@ -18,6 +18,7 @@ import { Member } from './organization-roster.model';
 import { Profile } from '../models.module';
 import { DATE_PIPE_DEFAULT_OPTIONS } from '@angular/common';
 import { SubscriptionLog } from 'rxjs/internal/testing/SubscriptionLog';
+import { organizationDetailResolver } from './organization.resolver';
 
 @Injectable({
   providedIn: 'root'
@@ -69,6 +70,13 @@ export class OrganizationService {
     return this.http.post<Member>(
       '/api/members/organization/' + organization.slug,
       newMember
+    );
+  }
+
+  addOther(member: Member, organization: Organization): Observable<Member> {
+    return this.http.post<Member>(
+      '/api/members/organization/' + organization.slug,
+      member
     );
   }
 

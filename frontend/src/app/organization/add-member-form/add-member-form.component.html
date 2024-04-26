@@ -1,1 +1,61 @@
-<p>add-member-form works!</p>
+<!-- eslint-disable prettier/prettier -->
+<form [formGroup]="addMemberForm" (ngSubmit)="onSubmit()">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>
+              Add Member To {{organization.name}} 
+            </mat-card-title>
+        </mat-card-header>
+        <mat-form-field appearance="outline" color="accent">
+            <mat-label>Name</mat-label>
+            <input
+              matInput
+              placeholder=""
+              formControlName="name"
+              name="name"
+              required />
+          </mat-form-field>
+               
+    <!-- add validators, should be 9 digits, only numbers -->
+      <mat-form-field appearance="outline" color="accent">
+        <mat-label>PID (numbers only)</mat-label>
+        <input
+          matInput
+          placeholder="000000000"
+          formControlName="profile_id"
+          name="profile_id"
+          type="number"
+          required />
+      </mat-form-field>
+
+
+      <mat-form-field appearance="outline" color="accent">
+        <mat-label>Role</mat-label>
+        <input
+          matInput
+          placeholder="Member"
+          formControlName="role"
+          name="role"
+          required />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" color="accent">
+        <mat-label>Title</mat-label>
+        <input
+          matInput
+          placeholder=""
+          formControlName="title"
+          name="title"
+         />
+      </mat-form-field>
+      
+      
+      <!-- disable button when form not valid -->
+      <mat-card-actions>
+        <button mat-raised-button type="submit">
+        SUBMIT
+        </button>
+    </mat-card-actions>
+  </mat-card>
+
+</form>

@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { OrganizationRequestFormComponent } from './organization-request-form.component';
@@ -8,9 +9,8 @@ describe('OrganizationRequestFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ OrganizationRequestFormComponent ]
-    })
-    .compileComponents();
+      declarations: [OrganizationRequestFormComponent]
+    }).compileComponents();
 
     fixture = TestBed.createComponent(OrganizationRequestFormComponent);
     component = fixture.componentInstance;
