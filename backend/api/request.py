@@ -21,4 +21,16 @@ openapi_tags = {
 def addMember(
     slug: str, newRequest: Request, request_service: RequestService = Depends()
 ) -> Request:
+    """
+    Create a request
+
+    Parameters:
+        slug: a string representing a unique identifier of an organization
+        newRequest: a valid Request Model
+        request_service: a valid RequestService
+
+    Returns:
+        Request (model)
+
+    """
     return request_service.add(slug, newRequest)

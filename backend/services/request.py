@@ -37,6 +37,16 @@ class RequestService:
         slug: str,
         request: Request,
     ) -> Request:
+        """
+        Adds a Request to the request table
+
+        Parameters:
+            slug: the specific slug of the organization that the user is requesting to join
+            request: the request model 
+
+        Returns:
+            Request (Model)
+        """
 
         org_entity = (
             self._session.query(OrganizationEntity)

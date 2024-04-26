@@ -7,7 +7,7 @@ from backend.models.request import Request
 
 
 class RequestEntity(EntityBase):
-
+    """Serves as the database model schema defining the shape of the `request` table"""
     __tablename__ = "request"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)

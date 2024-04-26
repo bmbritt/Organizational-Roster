@@ -27,7 +27,17 @@ def get_members(
     member_service: MemberService = Depends(),
     organization_service: OrganizationService = Depends(),
 ):
-    """Gets all the members of that organization"""
+    """
+    Get all members of an organization
+
+    Parameters:
+        slug: a string representing a unique identifier of an organization
+        organization_service: a valid OrganizationService
+        member_service: a valid MemberService
+
+    Returns:
+        list[Members]: All `Members`s of an organization with the matching organizationID
+    """
 
     organizationID = organization_service.get_by_slug(slug).id
     if organizationID:
@@ -36,6 +46,17 @@ def get_members(
 
 @api.post("/organization/{slug}", response_model=Member, tags=["Members"])
 def addMember(newMember: Member, member_service: MemberService = Depends()) -> Member:
+    """
+    Create member
+
+    Parameters:
+        newMember: a valid Member model
+        member_service: a valid MemberService
+
+    Returns:
+        Member: Created Member
+
+    """
     return member_service.add(newMember)
 
 
@@ -46,10 +67,32 @@ def delete(
     member_service: MemberService = Depends(),
     organization_service: OrganizationService = Depends(),
 ):
+    """
+    Delete Member
+
+    Parameters:
+        slug: a string representing a unique identifier of an organization
+        member_service: a valid MemberService
+        subject: a valid User model representing the currently logged in User
+        organization_service: a valid OrganizationService
+
+    Raises:
+        ResourceNotFoundException: if a subject does not exist or an organization does not exist
+    """
     organization = organization_service.get_by_slug(slug)
     return member_service.deleteSelf(subject, organization)
 
 
 @api.delete("/delete/{memberID}", tags=["Members"])
 def deleteOther(memberID: int, member_service: MemberService = Depends()):
+    """
+    Delete Member
+
+    Parameters:
+        memberID: A member's PID
+        member_service: a valid MemberService
+
+    Raises:
+        ResourceNotFoundException: if a member does not exist 
+    """
     return member_service.deleteOther(memberID)

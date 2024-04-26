@@ -8,7 +8,7 @@ from backend.models.organization import Organization
 
 
 class MemberEntity(EntityBase):
-
+    """Serves as the database model schema defining the shape of the `member` table"""
     __tablename__ = "member"
 
     ### model fields ###
@@ -29,6 +29,14 @@ class MemberEntity(EntityBase):
 
     @classmethod
     def from_model(cls, model: Member) -> Self:
+        """
+        Class method that converts an `Member` model into a `MemberEntity`
+
+        Parameters:
+            - model (Member): Model to convert into an entity
+        Returns:
+            MemberEntity: Entity created from model
+        """
         return cls(
             id=model.id,
             name=model.name,
@@ -40,10 +48,10 @@ class MemberEntity(EntityBase):
 
     def to_model(self) -> Member:
         """
-        Converts a `OrganizationEntity` object into a `Organization` model object
+        Converts a `MemberEntity` object into a `Member` model object
 
         Returns:
-            Organization: `Organization` object from the entity
+            Member: `Member` object from the entity
         """
         return Member(
             id=self.id,

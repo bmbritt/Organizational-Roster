@@ -33,10 +33,13 @@ class MemberService:
 
     def all(self, organizationID: int) -> list[Member]:
         """
-        Retrieves all Members from the table
+        Retrieves all Members from the specified organization table
+
+        Parameters:
+            organizationid (int): the primary key of a specific organization
 
         Returns:
-            list[Member]: List of all `Member`
+            list[Member]: List of all `Member` from the specified organization
         """
         memberEntities = (
             self._session.query(MemberEntity)
@@ -47,14 +50,34 @@ class MemberService:
         return [member.to_model() for member in memberEntities]
 
     def add(self, member: Member) -> Member:
+        """
+        Adds a specified Member to the database
+
+        Parameters:
+            Member (model) to be added into the database
+
+        Returns:
+            Member (model)
+        """
         member_entity = MemberEntity.from_model(member)
         self._session.add(member_entity)
         self._session.commit()
         return member_entity.to_model()
 
-    # TODO these functions only works if it is a public organization and they are adding themselves to the org
-    # otherwise should create a new function to add someone else to it similar to delete member function
     def add_member_public(self, subject: User, organization: Organization) -> Member:
+        """
+        Adds a user to an organization, specifically used when they press "joinOrganization" button in front end
+
+        Parameters:
+            subject: a valid User model representing the currently logged in User
+            organization (Organization): Organization to add to table
+
+        Returns:
+            Member (model)
+        Raises:
+            ValueError: If organization does not exist
+            ValueError: If subject does not have a valid ID
+        """
         if organization.id is None:
             raise ValueError("Organization must exist to add a member.")
 
@@ -79,6 +102,16 @@ class MemberService:
         return member_entity.to_model()
 
     def deleteSelf(self, subject: User, organization: Organization) -> None:
+        """
+        Deletes a user from an organization, specifically used when they press "leaveOrganization" button in front end
+
+        Parameters:
+            subject: a valid User model representing the currently logged in User
+            organization (Organization): Organization to add to table
+
+        Raises:
+            ResourceNotFoundException: if a subject does not exist or an organization does not exist 
+        """
         member = (
             self._session.query(MemberEntity)
             .filter(
@@ -99,6 +132,15 @@ class MemberService:
         self._session.commit()
 
     def deleteOther(self, memberID: int) -> None:
+        """
+        Deletes a user other than the current subject from the current organization database
+
+        Parameters:
+            memberID: the pid of the specified member being deleted
+
+        Raises:
+            ResourceNotFoundException: if a member does not exist 
+        """
         member = (
             self._session.query(MemberEntity)
             .filter(
