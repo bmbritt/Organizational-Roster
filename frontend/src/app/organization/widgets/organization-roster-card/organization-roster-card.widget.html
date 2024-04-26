@@ -20,7 +20,11 @@ fullWidth
         </div>
         <div class ="content-section"> 
         <div *ngIf="getPresident().id !== null" class="title">
-          {{getPresident().name}}
+          {{getPresident().name}} 
+          <button mat-button *ngIf="checkPermissions() | async">Edit</button>
+          <button mat-button *ngIf="checkPermissions() | async" (click)="this.removeMember(getPresident())">Delete</button>
+          <br>
+          {{getPresident().title}}
           <button mat-button *ngIf="checkPermissions() | async">Edit</button>
           <button mat-button *ngIf="checkPermissions() | async" (click)="this.removeMember(getPresident())">Delete</button>
           <br>
@@ -38,9 +42,12 @@ fullWidth
         </div>
         <div *ngIf="getOfficers().length > 0" class="title">
           <div *ngFor="let officer of getOfficers()">
-            {{officer.name}}
+            {{officer.name}} 
             <button mat-button *ngIf="checkPermissions() | async">Edit</button>
             <button mat-button *ngIf="checkPermissions() | async" (click)="this.removeMember(officer)">Delete</button>
+            <br>
+            {{officer.title}}
+           
             <br>
           </div>
         </div>
@@ -55,9 +62,12 @@ fullWidth
         </div>
         <div *ngIf="getGeneralMembers().length > 0" class="title">
           <div *ngFor="let member of getGeneralMembers()">
-            {{member.name}}
+            {{member.name}} 
             <button mat-button *ngIf="checkPermissions() | async">Edit</button>
             <button mat-button *ngIf="checkPermissions() | async" (click)="this.removeMember(member)">Delete</button>
+            <br>
+            {{member.title}}
+           
             <br>
           </div>
         </div>
@@ -67,15 +77,15 @@ fullWidth
 
     
 
-    <a [routerLink]="['/organizations', this.organization?.slug, 'add']" *ngIf="checkPermissions()| async"><button mat-button color="warn">Add Member</button></a>
+    <a [routerLink]="['/organizations', this.organization?.slug, 'add-member']" *ngIf="checkPermissions()| async"><button mat-button color="warn">Add Member</button></a>
 
     <a
-            [routerLink]="['/organizations', organization!.slug, 'roster', 'add']"
-            *ngIf="checkPermissions() | async">
-            <button mat-icon-button color="basic">
-              <mat-icon>edit</mat-icon>
-            </button>
-    </a>
+    [routerLink]="['/organizations', organization!.slug, 'roster', 'add']"
+    *ngIf="checkPermissions() | async">
+    <button mat-icon-button color="basic">
+      <mat-icon>edit</mat-icon>
+    </button>
+</a>
 
 </mat-card>
 
