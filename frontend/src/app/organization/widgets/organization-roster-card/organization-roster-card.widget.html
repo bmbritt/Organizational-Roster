@@ -25,8 +25,7 @@ fullWidth
           <button mat-button *ngIf="checkPermissions() | async" (click)="this.removeMember(getPresident())">Delete</button>
           <br>
           {{getPresident().title}}
-          <button mat-button *ngIf="checkPermissions() | async">Edit</button>
-          <button mat-button *ngIf="checkPermissions() | async" (click)="this.removeMember(getPresident())">Delete</button>
+ 
           <br>
         </div>
         </div>
