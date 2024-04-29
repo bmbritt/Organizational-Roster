@@ -44,6 +44,22 @@ def get_members(
         return member_service.all(organizationID)
 
 
+@api.get("/{id}", response_model=Member, tags=["Members"])
+def get_member(id: int, member_service: MemberService = Depends()) -> Member:
+    """
+    Get Member
+
+    Parameters:
+        id: id of Member to get
+        member_service: a valid MemberService
+
+    Returns:
+        Member: Created Member
+    """
+
+    return member_service.getMember(id)
+
+
 @api.post("/organization/{slug}", response_model=Member, tags=["Members"])
 def addMember(newMember: Member, member_service: MemberService = Depends()) -> Member:
     """
@@ -58,6 +74,20 @@ def addMember(newMember: Member, member_service: MemberService = Depends()) -> M
 
     """
     return member_service.add(newMember)
+
+
+@api.put("", response_model=Member, tags=["Members"])
+def update_member(member: Member, member_service: MemberService = Depends()) -> Member:
+    """
+    Update Member
+
+    Parameters:
+    member: a valid Member model
+    member_service: a valid MemberService
+
+    """
+
+    return member_service.update_member(member)
 
 
 @api.delete("/organization/{slug}", tags=["Members"])
@@ -93,6 +123,6 @@ def deleteOther(memberID: int, member_service: MemberService = Depends()):
         member_service: a valid MemberService
 
     Raises:
-        ResourceNotFoundException: if a member does not exist 
+        ResourceNotFoundException: if a member does not exist
     """
     return member_service.deleteOther(memberID)

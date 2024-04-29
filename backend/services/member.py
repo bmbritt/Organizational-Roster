@@ -64,6 +64,35 @@ class MemberService:
         self._session.commit()
         return member_entity.to_model()
 
+    def update_member(self, member: Member) -> Member:
+        """
+        Updates a member in the database
+
+        Parameters:
+            Member (model) to be added into the database
+
+        Returns:
+            Member (model)
+
+        Raises:
+            ResourceNotFoundException: Timer does not exist.
+
+        """
+
+        memberEntity = self._session.get(MemberEntity, member.id)
+
+        if memberEntity is None:
+            raise ResourceNotFoundException("Member does not exist")
+
+        memberEntity.name = member.name
+        memberEntity.profile_id = member.profile_id
+        memberEntity.role = member.role
+        memberEntity.title = member.title
+
+        self._session.commit()
+
+        return memberEntity.to_model()
+
     def add_member_public(self, subject: User, organization: Organization) -> Member:
         """
         Adds a user to an organization, specifically used when they press "joinOrganization" button in front end
@@ -101,6 +130,27 @@ class MemberService:
 
         return member_entity.to_model()
 
+    def getMember(self, id: int) -> Member:
+        """
+        Gets a member based on Member id
+
+        Parameters:
+            id: The id of the Member to get
+
+        Raises:
+            ResourceNotFoundException: if a Member does not exist
+
+
+        """
+        member = (
+            self._session.query(MemberEntity).where(MemberEntity.id == id).one_or_none()
+        )
+
+        if member is None:
+            raise ResourceNotFoundException(f"No Member with that id was found")
+
+        return member.to_model()
+
     def deleteSelf(self, subject: User, organization: Organization) -> None:
         """
         Deletes a user from an organization, specifically used when they press "leaveOrganization" button in front end
@@ -110,7 +160,7 @@ class MemberService:
             organization (Organization): Organization to add to table
 
         Raises:
-            ResourceNotFoundException: if a subject does not exist or an organization does not exist 
+            ResourceNotFoundException: if a subject does not exist or an organization does not exist
         """
         member = (
             self._session.query(MemberEntity)
@@ -139,7 +189,7 @@ class MemberService:
             memberID: the pid of the specified member being deleted
 
         Raises:
-            ResourceNotFoundException: if a member does not exist 
+            ResourceNotFoundException: if a member does not exist
         """
         member = (
             self._session.query(MemberEntity)

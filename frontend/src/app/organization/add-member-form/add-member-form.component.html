@@ -29,16 +29,16 @@
       </mat-form-field>
 
 
-      <mat-form-field appearance="outline" color="accent">
-        <mat-label>Role</mat-label>
-        <input
-          matInput
-          placeholder="Member"
-          formControlName="role"
-          name="role"
-          required />
-      </mat-form-field>
-
+      <span class="spacing">
+        <span id="role-label">Choose Role</span>
+        <mat-button-toggle-group formControlName="role" aria-label="Role">
+          <mat-button-toggle value="President">President</mat-button-toggle>
+          <mat-button-toggle value="Officer">Officer</mat-button-toggle> 
+          <mat-button-toggle value="Member">Member</mat-button-toggle>
+        </mat-button-toggle-group>
+      </span>
+      
+  
       <mat-form-field appearance="outline" color="accent">
         <mat-label>Title</mat-label>
         <input
@@ -48,6 +48,7 @@
           name="title"
          />
       </mat-form-field>
+
       
       
       <!-- disable button when form not valid -->

@@ -1,0 +1,5 @@
+/* Style the span to add space after the button toggle group */
+span {
+  display: block; /* Make span behave like a block-level element */
+  margin-bottom: 20px; /* Space below the button toggle group */
+}

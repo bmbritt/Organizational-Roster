@@ -151,4 +151,11 @@ export class OrganizationRosterCard implements OnInit, OnDestroy {
 
     location.reload();
   }
+
+  public editMember(member: Member) {
+    console.log('reached here');
+    this.router.navigate([
+      '/' + this.organization?.slug + '/add-member/' + member.id + '/'
+    ]);
+  }
 }

@@ -27,7 +27,7 @@ import { Profile } from 'src/app/profile/profile.service';
 })
 export class AddMemberFormComponent {
   public static Route: Route = {
-    path: ':slug/add-member',
+    path: ':slug/add-member/:id',
     component: AddMemberFormComponent,
     title: 'Add Member',
     canActivate: [],
@@ -38,6 +38,12 @@ export class AddMemberFormComponent {
   };
 
   public organization: Organization;
+
+  /**Stores the ID of the member that is currenlty being edited*/
+  id: number = -1;
+
+  /** Stores wheter the member is new or not */
+  isNew: boolean = false;
 
   public completedAddObject = {};
   public profile: Profile | null = null;
@@ -73,31 +79,65 @@ export class AddMemberFormComponent {
     /** Get id from the url */
     let organization_slug = this.route.snapshot.params['slug'];
     this.organization_slug = organization_slug;
+
+    /** Determine if the member is new*/
+    this.isNew = route.snapshot.params['id'] == 'new';
+
+    /** If the member is not new, set exisiting member data and updata forms*/
+    if (!this.isNew) {
+      this.id = route.snapshot.params['id'];
+      console.log('If not a new member we get here ');
+      orgService.getMember(this.id).subscribe((member) => {
+        console.log('Does this API function work');
+        this.addMemberForm.setValue({
+          name: member.name,
+          profile_id: member.profile_id,
+          role: member.role,
+          title: member.title
+        });
+      });
+    }
   }
 
   onSubmit() {
-    if (this.addMemberForm.value) {
-      Object.assign(
-        this.completedAddObject,
+    if (this.isNew) {
+      if (this.addMemberForm.value) {
+        Object.assign(
+          this.completedAddObject,
 
-        this.addMemberForm.value,
-        {
+          this.addMemberForm.value,
+          {
+            id: null,
+            organization_id: this.organization.id
+          }
+        );
+
+        let newMember = {
           id: null,
+          name: this.name.value == null ? '' : this.name.value,
+          profile_id: this.pid.value,
+          role: this.role.value == null ? 'Member' : this.role.value,
+          title: this.title.value == null ? '' : this.title.value,
           organization_id: this.organization.id
-        }
-      );
-
-      let newMember = {
-        id: null,
-        name: this.name.value == null ? '' : this.name.value,
-        profile_id: this.pid.value,
-        role: this.role.value == null ? 'Member' : this.role.value,
-        title: this.title.value == null ? '' : this.title.value,
-        organization_id: this.organization.id
-      };
-      console.log(newMember);
-      this.orgService.addOther(newMember, this.organization).subscribe();
-      this.router.navigate(['/organizations/' + this.organization.slug]);
+        };
+        console.log(newMember);
+        this.orgService.addOther(newMember, this.organization).subscribe();
+        this.router.navigate(['/organizations/' + this.organization.slug]);
+      }
+    } else {
+      //Edit the existing Member
+      this.orgService
+        .editMember({
+          id: this.id,
+          name: this.name.value ?? '',
+          profile_id: this.pid.value ?? 0,
+          role: this.role.value ?? '',
+          title: this.title.value ?? '',
+          organization_id: this.organization.id
+        })
+        .subscribe((_) => {
+          this.router.navigate(['/organizations/' + this.organization.slug]);
+        });
     }
   }
 }
