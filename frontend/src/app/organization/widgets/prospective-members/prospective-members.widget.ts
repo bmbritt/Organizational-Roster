@@ -36,7 +36,7 @@ export class ProspectiveMembersComponent {
     private route: ActivatedRoute,
     private router: Router,
     private orgService2: OrganizationService,
-    private requestService: RequestService
+    private requestService: RequestService,
     private permission: PermissionService
   ) {}
 
