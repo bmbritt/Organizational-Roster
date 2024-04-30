@@ -10,6 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { CompletedRequestObject } from '../../organization-request-form/organization-request.model';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { RequestService } from '../../organization-request-form/request.service';
 import { PermissionService } from 'src/app/permission.service';
 
 @Component({
@@ -35,6 +36,7 @@ export class ProspectiveMembersComponent {
     private route: ActivatedRoute,
     private router: Router,
     private orgService2: OrganizationService,
+    private requestService: RequestService
     private permission: PermissionService
   ) {}
 
@@ -80,6 +82,33 @@ export class ProspectiveMembersComponent {
       }
     }
     return listofReqs;
+  }
+
+  public denyRequest(requestID: number): void {
+    this.requestService.deleteRequest(requestID).subscribe();
+    location.reload();
+  }
+  public cancel() {
+    return;
+  }
+
+  public approveRequest(request: CompletedRequestObject): void {
+    let newMember = {
+      id: null,
+      name: request.name == null ? '' : request.name,
+      profile_id: request.profile_id == null ? -1 : request.profile_id,
+      role: 'Member',
+      title: '',
+      organization_id: request.organization_id
+    };
+
+    if (this.organization !== undefined) {
+      this.orgService2.addOther(newMember, this.organization).subscribe();
+    }
+    if (request.id !== null) {
+      this.requestService.deleteRequest(request.id).subscribe();
+    }
+    location.reload();
   }
 
   public viewFullRequest(request: CompletedRequestObject | undefined | null) {

@@ -37,6 +37,11 @@ def addRequest(
     return request_service.add(slug, newRequest)
 
 
+@api.delete("/{requestID}", tags=["Requests"])
+def delete_request(requestID: int, request_service: RequestService = Depends()):
+    return request_service.delete(requestID)
+
+
 @api.get("/{slug}", response_model=list[Request], tags=["Requests"])
 def getRequests(
     slug: str,

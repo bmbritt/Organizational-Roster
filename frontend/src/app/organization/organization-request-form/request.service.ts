@@ -21,4 +21,10 @@ export class RequestService {
       request
     );
   }
+
+  deleteRequest(requestID: number) {
+    return this.http.delete<CompletedRequestObject>(
+      '/api/requests/organization/' + requestID
+    );
+  }
 }

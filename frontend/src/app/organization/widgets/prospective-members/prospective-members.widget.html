@@ -34,7 +34,10 @@
                 </mat-list-item> 
               </div>
             </mat-list>
+         
           </mat-panel-description>
+          <button mat-button (click)="this.approveRequest(request)">Approve</button>
+          <button mat-button (click)="request.id !== null ? this.denyRequest(request.id): this.cancel() ">Deny</button>
       </mat-expansion-panel>
     </div>
 </div>

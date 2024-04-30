@@ -74,6 +74,16 @@ class RequestService:
         # Return the pydantic model representaiton of the entity we just created
         return request_entity.to_model()
 
+    def delete(self, requestID: int):
+        targetRequest = (
+            self._session.query(RequestEntity)
+            .where(RequestEntity.id == requestID)
+            .one_or_none()
+        )
+
+        self._session.delete(targetRequest)
+        self._session.commit()
+
     def all(self, organizationID: int) -> list[Request]:
         """
         Retrieves all Requests from the table
