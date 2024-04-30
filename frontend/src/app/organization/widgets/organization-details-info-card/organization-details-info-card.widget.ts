@@ -86,6 +86,26 @@ export class OrganizationDetailsInfoCard implements OnInit, OnDestroy {
           .subscribe()
       );
     }
+    if (this.organization && this.profile) {
+      this.checkUserRequests(this.organization.slug, this.profile?.id);
+    }
+  }
+
+  private checkUserRequests(
+    slug: string | undefined,
+    profileId: number | null
+  ): void {
+    this.orgService2.getRequestsByOrganization(slug).subscribe({
+      next: (requests: CompletedRequestObject[]) => {
+        this.hasUserRequested = requests.some(
+          (request) => request.profile_id === profileId
+        );
+      },
+      error: (error) => {
+        console.error('Failed to load requests', error);
+        this.hasUserRequested = false;
+      }
+    });
   }
 
   addMember(organization: Organization, profile: Profile): void {

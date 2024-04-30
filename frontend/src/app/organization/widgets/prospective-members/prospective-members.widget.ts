@@ -4,19 +4,19 @@ import { Component, Input, OnInit, OnDestroy, NgModule } from '@angular/core';
 import { Organization } from '../../organization.model';
 import { Profile } from 'src/app/models.module';
 import { OrganizationService } from '../../organization.service';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { CompletedRequestObject } from '../../organization-request-form/organization-request.model';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { PermissionService } from 'src/app/permission.service';
 
 @Component({
   selector: 'app-prospective-members',
   templateUrl: './prospective-members.widget.html',
   styleUrls: ['./prospective-members.widget.css']
 })
-
 export class ProspectiveMembersComponent {
   @Input() organization?: Organization;
   // @Input() profile?: Profile;
@@ -34,9 +34,16 @@ export class ProspectiveMembersComponent {
     private breakpointObserver: BreakpointObserver,
     private route: ActivatedRoute,
     private router: Router,
-    private orgService2: OrganizationService
+    private orgService2: OrganizationService,
+    private permission: PermissionService
   ) {}
 
+  checkPermissions(): Observable<boolean> {
+    return this.permission.check(
+      'organization.update',
+      `organization/${this.organization?.slug}`
+    );
+  }
   /** Runs whenever the view is rendered initally on the screen */
   ngOnInit(): void {
     this.isHandsetSubscription = this.initHandset();
