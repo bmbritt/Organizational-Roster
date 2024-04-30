@@ -44,7 +44,10 @@ def get_members(
         return member_service.all(organizationID)
 
 
-@api.get("/{id}", response_model=Member, tags=["Members"])
+
+@api.get(
+    "/{id}", responses={404: {"model": None}}, response_model=Member, tags=["Members"]
+)
 def get_member(id: int, member_service: MemberService = Depends()) -> Member:
     """
     Get Member
@@ -76,7 +79,8 @@ def addMember(newMember: Member, member_service: MemberService = Depends()) -> M
     return member_service.add(newMember)
 
 
-@api.put("", response_model=Member, tags=["Members"])
+
+@api.put("", responses={404: {"model": None}}, response_model=Member, tags=["Members"])
 def update_member(member: Member, member_service: MemberService = Depends()) -> Member:
     """
     Update Member

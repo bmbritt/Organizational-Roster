@@ -109,6 +109,26 @@ export class OrganizationService {
     return this.http.get<Member[]>('/api/members/organization/' + slug);
   }
 
+
+  /**Returns a member by id using the backend database table using the backend HTTP get request
+   * @param id: id of the member
+   * @returns {Observable<Member>}
+   */
+
+  getMember(id: number): Observable<Member> {
+    return this.http.get<Member>(`/api/members/${id}`);
+  }
+
+  /** Updates member information using the backend database table using the backened HTTP put request
+   *
+   * @param member: The edited information of the member
+   * @returns {Observable<Member>}
+   */
+
+  editMember(member: Member): Observable<Member> {
+    return this.http.put<Member>('/api/members', member);
+  }
+
  getRequestsByOrganization(
     slug: string | undefined
   ): Observable<CompletedRequestObject[]> {
@@ -116,6 +136,7 @@ export class OrganizationService {
       '/api/requests/organization/' + slug
     );
   }
+
 
 
 

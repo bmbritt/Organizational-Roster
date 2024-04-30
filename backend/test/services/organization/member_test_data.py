@@ -61,6 +61,15 @@ member_invalid = Member(
     organization_id=1,
 )
 
+member_to_edit = Member(
+    id=4,
+    name="Kush",
+    profile_id=6,
+    role="President",
+    title="Pres",
+    organization_id=1,
+)
+
 
 # Data Functions
 
