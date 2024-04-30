@@ -16,7 +16,8 @@
   <organization-details-info-card
     [organization]="organization"
     [profile]="profile"
-    [roster]="roster"/>
+    [roster]="roster"
+    />
 
   <div class="event-listing-container">
     <event-list
@@ -27,11 +28,12 @@
       [showHeader]="true"
       [showCreateButton]="(eventCreationPermission$ | async)!" />
   </div>
-
   
   <mat-card class="roster">
     <organization-roster-card [organization]="organization" [roster]="roster"></organization-roster-card>
   </mat-card>
+
+  <app-prospective-members [organization]="organization" [requests]="requests"></app-prospective-members>
 </ng-template>
 
 

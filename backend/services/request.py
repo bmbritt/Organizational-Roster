@@ -42,7 +42,7 @@ class RequestService:
 
         Parameters:
             slug: the specific slug of the organization that the user is requesting to join
-            request: the request model 
+            request: the request model
 
         Returns:
             Request (Model)
@@ -56,7 +56,10 @@ class RequestService:
 
         org_model = org_entity.to_model()
 
-        request.organization_id = org_model.id
+        if org_model.id:
+            request.organization_id = org_model.id
+        else:
+            raise ResourceNotFoundException("It broke in request service")
 
         # Create an enitty from the request model
         request_entity = RequestEntity.from_model(request)
@@ -70,3 +73,18 @@ class RequestService:
 
         # Return the pydantic model representaiton of the entity we just created
         return request_entity.to_model()
+
+    def all(self, organizationID: int) -> list[Request]:
+        """
+        Retrieves all Requests from the table
+
+        Returns:
+            list[Requests]: List of all `Requests`
+        """
+        requestEntities = (
+            self._session.query(RequestEntity)
+            .where(RequestEntity.organization_id == organizationID)
+            .all()
+        )
+
+        return [request.to_model() for request in requestEntities]

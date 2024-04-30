@@ -20,8 +20,10 @@ fullWidth
         </div>
         <div class ="content-section"> 
         <div *ngIf="getPresident().id !== null" class="title">
+
           {{getPresident().name}}
           <a [routerLink]="['/organizations/' + this.organization?.slug + '/add-member/' + getPresident().id]" *ngIf="checkPermissions()| async"><button mat-button>Edit</button></a>
+
           <button mat-button *ngIf="checkPermissions() | async" (click)="this.removeMember(getPresident())">Delete</button>
           <br>
           {{getPresident().title}}
@@ -41,8 +43,10 @@ fullWidth
         </div>
         <div *ngIf="getOfficers().length > 0" class="title">
           <div *ngFor="let officer of getOfficers()">
+
             {{officer.name}}
             <a [routerLink]="['/organizations/' + this.organization?.slug + '/add-member/' + officer.id]" *ngIf="checkPermissions()| async"><button mat-button>Edit</button></a>
+
             <button mat-button *ngIf="checkPermissions() | async" (click)="this.removeMember(officer)">Delete</button>
             <br>
             {{officer.title}}
@@ -62,7 +66,9 @@ fullWidth
         <div *ngIf="getGeneralMembers().length > 0" class="title">
           <div *ngFor="let member of getGeneralMembers()">
             {{member.name}} 
+
             <a [routerLink]="['/organizations/' + this.organization?.slug + '/add-member/' + member.id]" *ngIf="checkPermissions()| async"><button mat-button>Edit</button></a>
+
             <button mat-button *ngIf="checkPermissions() | async" (click)="this.removeMember(member)">Delete</button>
             <br>
             {{member.title}}

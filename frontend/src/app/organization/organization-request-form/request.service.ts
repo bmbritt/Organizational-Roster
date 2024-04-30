@@ -17,7 +17,7 @@ export class RequestService {
     request: CompletedRequestObject
   ): Observable<CompletedRequestObject> {
     return this.http.post<CompletedRequestObject>(
-      '/api/request/organization' + slug,
+      '/api/requests/organization/' + slug,
       request
     );
   }

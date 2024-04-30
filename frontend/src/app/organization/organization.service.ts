@@ -19,6 +19,10 @@ import { Profile } from '../models.module';
 import { DATE_PIPE_DEFAULT_OPTIONS } from '@angular/common';
 import { SubscriptionLog } from 'rxjs/internal/testing/SubscriptionLog';
 import { organizationDetailResolver } from './organization.resolver';
+import {
+  CompletedRequestObject,
+  CompletedRequestObject as Request
+} from './organization-request-form/organization-request.model';
 
 @Injectable({
   providedIn: 'root'
@@ -105,22 +109,14 @@ export class OrganizationService {
     return this.http.get<Member[]>('/api/members/organization/' + slug);
   }
 
-  /**Returns a member by id using the backend database table using the backend HTTP get request
-   * @param id: id of the member
-   * @returns {Observable<Member>}
-   */
-
-  getMember(id: number): Observable<Member> {
-    return this.http.get<Member>(`/api/members/${id}`);
+ getRequestsByOrganization(
+    slug: string | undefined
+  ): Observable<CompletedRequestObject[]> {
+    return this.http.get<CompletedRequestObject[]>(
+      '/api/requests/organization/' + slug
+    );
   }
 
-  /** Updates member information using the backend database table using the backened HTTP put request
-   *
-   * @param member: The edited information of the member
-   * @returns {Observable<Member>}
-   */
 
-  editMember(member: Member): Observable<Member> {
-    return this.http.put<Member>('/api/members', member);
-  }
+
 }

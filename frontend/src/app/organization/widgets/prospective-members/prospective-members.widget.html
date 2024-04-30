@@ -1,0 +1,51 @@
+<!-- eslint-disable prettier/prettier -->
+<mat-card class="prospective-members-section" appearance="outlined">
+  <mat-card-title>Prospective Members</mat-card-title>
+  <mat-divider class="list-divider"></mat-divider>
+  <mat-card appearance="outlined">
+
+  <div *ngIf="this.requests !== undefined && this.requests.length > 0">
+  
+    <div *ngFor="let request of this.requests">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ request.name }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+          <mat-panel-description>
+            <mat-list>
+              <div>
+                <mat-list-item>
+                  <span matListItemTitle>Strength(s):</span>
+                  <span matListItemLine>{{ request.strength }}</span>
+                </mat-list-item>
+              </div>
+              <div>
+                <mat-list-item>
+                  <span matListItemTitle>Reasoning:</span>
+                  <span matListItemLine>{{ request.reasoning }}</span>
+                </mat-list-item>
+              </div>
+              <div>
+                <mat-list-item>
+                  <span matListItemTitle>Major(s):</span>
+                  <span matListItemLine>{{ request.major }}</span>
+                </mat-list-item> 
+              </div>
+            </mat-list>
+          </mat-panel-description>
+      </mat-expansion-panel>
+    </div>
+</div>
+
+
+  <div *ngIf="this.requests !== undefined && this.requests.length === 0">
+    <p>No pending requests</p>
+  </div>
+
+
+
+  </mat-card>
+</mat-card>
+

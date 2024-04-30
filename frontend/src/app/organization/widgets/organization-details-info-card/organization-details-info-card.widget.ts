@@ -20,6 +20,7 @@ import { OrganizationService } from '../../organization.service';
 import { OrganizationRequestFormService } from '../../organization-request-form/organization-request-form.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { CompletedRequestObject } from '../../organization-request-form/organization-request.model';
 
 @Component({
   selector: 'organization-details-info-card',
@@ -33,11 +34,13 @@ export class OrganizationDetailsInfoCard implements OnInit, OnDestroy {
   @Input() profile?: Profile;
   @Input() member?: Member;
   @Input() roster?: Member[] | null;
+  @Input() requests?: CompletedRequestObject[] | null;
 
   public orgService = OrganizationService;
   /** Holds data on whether or not the user is on a mobile device */
   public isHandset: boolean = false;
   private isHandsetSubscription!: Subscription;
+  public hasUserRequested: boolean = false;
 
   /** Holds data on whether or not the user is on a tablet */
   public isTablet: boolean = false;

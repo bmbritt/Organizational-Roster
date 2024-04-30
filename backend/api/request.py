@@ -8,17 +8,18 @@ from fastapi import APIRouter, Depends, HTTPException
 
 from ..models.request import Request
 from ..services import RequestService
+from ..services import OrganizationService
 
 
-api = APIRouter(prefix="/api/requests")
+api = APIRouter(prefix="/api/requests/organization")
 openapi_tags = {
     "name": "Request",
     "description": "Add requests to database",
 }
 
 
-@api.post("/organization/{slug}", response_model=Request, tags=["Requests"])
-def addMember(
+@api.post("/{slug}", response_model=Request, tags=["Requests"])
+def addRequest(
     slug: str, newRequest: Request, request_service: RequestService = Depends()
 ) -> Request:
     """
@@ -34,3 +35,16 @@ def addMember(
 
     """
     return request_service.add(slug, newRequest)
+
+
+@api.get("/{slug}", response_model=list[Request], tags=["Requests"])
+def getRequests(
+    slug: str,
+    request_service: RequestService = Depends(),
+    organization_service: OrganizationService = Depends(),
+) -> list[Request]:
+    """Gets all the requests of that organization"""
+
+    organization = organization_service.get_by_slug(slug)
+
+    return request_service.all(organization.id)

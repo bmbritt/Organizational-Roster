@@ -29,6 +29,7 @@ import { Observable, map } from 'rxjs';
 import { PermissionService } from 'src/app/permission.service';
 import { OrganizationService } from '../organization.service';
 import { Member } from '../organization-roster.model';
+import { CompletedRequestObject } from '../organization-request-form/organization-request.model';
 
 /** Injects the organization's name to adjust the title. */
 let titleResolver: ResolveFn<string> = (route: ActivatedRouteSnapshot) => {
@@ -72,8 +73,8 @@ export class OrganizationDetailsComponent {
   /** Whether or not the user has permission to update events. */
   public eventCreationPermission$: Observable<boolean>;
   public roster: Member[];
-  public orgPresident: string;
 
+  public requests: CompletedRequestObject[] = [];
   /** Constructs the Organization Detail component */
   constructor(
     private route: ActivatedRoute,
@@ -91,6 +92,7 @@ export class OrganizationDetailsComponent {
     let organization_slug = this.route.snapshot.params['slug'];
 
     this.roster = [];
+
     this.profile = data.profile;
     this.organization = data.organization;
     orgservice
@@ -100,7 +102,12 @@ export class OrganizationDetailsComponent {
         this.roster = roster;
       });
 
-    this.orgPresident = 'Norah';
+    orgservice
+      .getRequestsByOrganization(organization_slug)
+      .pipe(map((request: CompletedRequestObject[]) => request))
+      .subscribe((requests: CompletedRequestObject[]) => {
+        this.requests = requests;
+      });
 
     this.eventsPerDay = eventService.groupEventsByDate(data.events ?? []);
     this.eventCreationPermission$ = this.permission.check(

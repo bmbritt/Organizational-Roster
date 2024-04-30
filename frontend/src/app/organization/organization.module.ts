@@ -30,6 +30,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 import { OrganizationPageComponent } from './organization-page/organization-page.component';
 import { OrganizationRoutingModule } from './organization-routing.module';
@@ -49,6 +50,8 @@ import { OrganizationRequestFormComponent } from './organization-request-form/or
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { AddMemberFormComponent } from './add-member-form/add-member-form.component';
+import { ProspectiveMembersComponent } from './widgets/prospective-members/prospective-members.widget';
+import { ViewRequestComponent } from './view-request/view-request.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +69,9 @@ import { AddMemberFormComponent } from './add-member-form/add-member-form.compon
     OrganizationDetailsInfoCard,
     OrganizationNotFoundCard,
     OrganizationRosterCard,
-    AddMemberFormComponent
+    AddMemberFormComponent,
+    ProspectiveMembersComponent,
+    ViewRequestComponent
   ],
   imports: [
     CommonModule,
@@ -93,7 +98,8 @@ import { AddMemberFormComponent } from './add-member-form/add-member-form.compon
     ReactiveFormsModule,
     MatRadioModule,
     MatCardModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    MatExpansionModule
   ]
 })
 export class OrganizationModule {}

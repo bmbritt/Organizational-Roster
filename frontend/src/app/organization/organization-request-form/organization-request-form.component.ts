@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Component, inject } from '@angular/core';
 import {
   ActivatedRoute,
@@ -132,13 +133,16 @@ export class OrganizationRequestFormComponent {
       let newRequest = {
         id: null,
         name: this.profile?.first_name,
-        organization_id: null,
+        organization_id: this.organization.id,
         strength: this.tellAbout.value ?? '',
         reasoning: this.whyJoin.value ?? '',
         major: this.major.value ?? '',
         profile_id: this.profile?.id
       };
-      this.requestService.addRequest(this.organization_slug, newRequest);
+      this.requestService
+        .addRequest(this.organization_slug, newRequest)
+        .subscribe();
+
       this.onSuccess(this.organization);
     }
   }

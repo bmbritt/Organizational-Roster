@@ -206,12 +206,12 @@ class OrganizationService:
             raise ValueError("Organization must exist to add a member.")
         if subject.id:
             member_entity = MemberEntity.from_model(
-                organization,
                 Member(
                     id=None,
                     name=subject.first_name + " " + subject.last_name,
                     profile_id=subject.id,
-                    affiliation="General Member",
+                    role="Member",
+                    title= '',
                     organization_id=organization.id,
                 ),
             )

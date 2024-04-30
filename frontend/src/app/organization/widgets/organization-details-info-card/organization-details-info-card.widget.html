@@ -109,8 +109,8 @@
 
           <div [ngStyle]="{'display': 'inline-block'}"*ngIf="!organization.closed">
           <button mat-button *ngIf="(profile !== undefined && this.joinButtonVisible && organization.public)" (click)="addMember(organization,profile)">Join Organization</button>
-          <a [routerLink]="['/organizations', this.organization.slug, 'request']"><button mat-button *ngIf="(profile !== undefined && this.joinButtonVisible && !organization.public && !this.orgRequestService.hasMadeRequest(organization, profile))">Request to Join Organization</button></a>
-          <button mat-button color="warn" *ngIf="(profile !== undefined && this.joinButtonVisible && !organization.public && this.orgRequestService.hasMadeRequest(organization, profile))">Your Request to Join is Pending</button>
+          <a [routerLink]="['/organizations', this.organization.slug, 'request']"><button mat-button *ngIf="(profile !== undefined && this.joinButtonVisible && !organization.public && !hasUserRequested)">Request to Join Organization</button></a>
+          <button mat-button color="warn" *ngIf="(profile !== undefined && this.joinButtonVisible && !organization.public && hasUserRequested)">Your Request to Join is Pending</button>
           <button mat-button *ngIf="(profile !== undefined && !this.joinButtonVisible)" (click)="leaveOrganization(profile,organization)">Leave Organization</button>
           </div>
         </div>
